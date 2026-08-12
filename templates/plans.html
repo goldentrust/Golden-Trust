@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Plans - Golden Trust</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #070707;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding-bottom: 95px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 18px;
+}
+
+.logo {
+    color: #d4af37;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.profile {
+    text-align: center;
+    color: #d4af37;
+    text-decoration: none;
+}
+
+.profile-icon {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #d4af37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.profile-name {
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.page-title {
+    padding: 12px 18px 24px;
+}
+
+.page-title h1 {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.page-title p {
+    color: #777;
+    font-size: 13px;
+}
+
+.plans {
+    padding: 0 18px;
+}
+
+.plan {
+    position: relative;
+    background: #121212;
+    border: 1px solid #292929;
+    border-radius: 22px;
+    padding: 23px;
+    margin-bottom: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.35);
+}
+
+.plan.featured {
+    border-color: #d4af37;
+    background:
+        radial-gradient(
+            circle at top right,
+            #44370e,
+            #171717 45%,
+            #0d0d0d
+        );
+}
+
+.badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #d4af37;
+    color: #080808;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 6px 9px;
+    border-radius: 20px;
+}
+
+.plan-name {
+    color: #d4af37;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.duration {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-top: 1px solid #292929;
+}
+
+.info span:first-child {
+    color: #777;
+    font-size: 12px;
+}
+
+.info span:last-child {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.daily {
+    color: #45d18a;
+}
+
+.select-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-top: 18px;
+    border-radius: 13px;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(135deg,#f2d675,#b58a1d);
+    color: #080808;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 80px;
+    background: rgba(10,10,10,.98);
+    border-top: 1px solid #252525;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-item {
+    color: #666;
+    text-align: center;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.nav-icon {
+    display: block;
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.nav-item.active {
+    color: #d4af37;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+
+    <div class="logo">
+        GOLDEN TRUST
+    </div>
+
+    <a href="/login" class="profile">
+        <div class="profile-icon">👤</div>
+        <div class="profile-name">Profile</div>
+    </a>
+
+</div>
+
+<div class="page-title">
+    <h1>Plans</h1>
+    <p>Choose a package that fits your account</p>
+</div>
+
+<div class="plans">
+
+    <div class="plan">
+
+        <div class="plan-name">
+            PACKAGE 01
+        </div>
+
+        <div class="price">
+            $50 <small>USDT</small>
+        </div>
+
+        <div class="duration">
+            Duration: 2 Months
+        </div>
+
+        <div class="info">
+            <span>Daily Amount</span>
+            <span class="daily">$1.65 USDT</span>
+        </div>
+
+        <a href="#" class="select-btn">
+            Select Plan
+        </a>
+
+    </div>
+
+
+    <div class="plan">
+
+        <div class="plan-name">
+            PACKAGE 02
+        </div>
+
+        <div class="price">
+            $100 <small>USDT</small>
+        </div>
+
+        <div class="duration">
+            Duration: 2 Months
+        </div>
+
+        <div class="info">
+            <span>Daily Amount</span>
+            <span class="daily">$3.30 USDT</span>
+        </div>
+
+        <a href="#" class="select-btn">
+            Select Plan
+        </a>
+
+    </div>
+
+
+    <div class="plan featured">
+
+        <div class="badge">
+            POPULAR
+        </div>
+
+        <div class="plan-name">
+            PACKAGE 03
+        </div>
+
+        <div class="price">
+            $250 <small>USDT</small>
+        </div>
+
+        <div class="duration">
+            Duration: 2 Months
+        </div>
+
+        <div class="info">
+            <span>Daily Amount</span>
+            <span class="daily">$8.50 USDT</span>
+        </div>
+
+        <a href="#" class="select-btn">
+            Select Plan
+        </a>
+
+    </div>
+
+
+    <div class="plan">
+
+        <div class="plan-name">
+            PACKAGE 04
+        </div>
+
+        <div class="price">
+            $500 <small>USDT</small>
+        </div>
+
+        <div class="duration">
+            Duration: 2 Months
+        </div>
+
+        <div class="info">
+            <span>Daily Amount</span>
+            <span class="daily">$17.00 USDT</span>
+        </div>
+
+        <a href="#" class="select-btn">
+            Select Plan
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="bottom-nav">
+
+    <a href="/" class="nav-item">
+        <span class="nav-icon">⌂</span>
+        Home
+    </a>
+
+    <a href="/team" class="nav-item">
+        <span class="nav-icon">♧</span>
+        Team
+    </a>
+
+    <a href="/plans" class="nav-item active">
+        <span class="nav-icon">◈</span>
+        Plans
+    </a>
+
+    <a href="/earn" class="nav-item">
+        <span class="nav-icon">★</span>
+        Earn
+    </a>
+
+    <a href="/dashboard" class="nav-item">
+        <span class="nav-icon">▣</span>
+        Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

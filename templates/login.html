@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Golden Trust</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #070707;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 18px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .logo {
+            text-align: center;
+            color: #d4af37;
+            font-size: 23px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 24px;
+            padding: 28px 22px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.45);
+        }
+
+        h1 {
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .error {
+            background: #241313;
+            border: 1px solid #5b2828;
+            color: #e88989;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 11px;
+            margin-bottom: 17px;
+        }
+
+        .success {
+            background: #102018;
+            border: 1px solid #27573a;
+            color: #66d99a;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 11px;
+            margin-bottom: 17px;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            color: #aaa;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #303030;
+            background: #080808;
+            color: #fff;
+            outline: none;
+            font-size: 13px;
+        }
+
+        input:focus {
+            border-color: #d4af37;
+        }
+
+        .button {
+            width: 100%;
+            border: none;
+            border-radius: 13px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f1d66d, #b38a1c);
+            color: #080808;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .bottom-text {
+            text-align: center;
+            color: #666;
+            font-size: 11px;
+            margin-top: 20px;
+        }
+
+        .bottom-text a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            color: #666;
+            text-decoration: none;
+            font-size: 11px;
+            margin-top: 20px;
+        }
+
+        .back:hover {
+            color: #d4af37;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            GOLDEN TRUST
+        </div>
+
+
+        <div class="card">
+
+            <h1>
+                Welcome Back
+            </h1>
+
+            <div class="subtitle">
+                Sign in to access your Golden Trust dashboard.
+            </div>
+
+
+            {% if error %}
+
+                <div class="error">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            {% if success %}
+
+                <div class="success">
+                    {{ success }}
+                </div>
+
+            {% endif %}
+
+
+            <form method="POST" action="/login">
+
+                <div class="field">
+
+                    <label for="username">
+                        Username or Email
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter username or email"
+                        required
+                        autocomplete="username"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password"
+                    >
+
+                </div>
+
+
+                <button type="submit" class="button">
+                    Sign In
+                </button>
+
+            </form>
+
+
+            <div class="bottom-text">
+
+                Don't have an account?
+
+                <a href="/register">
+                    Create Account
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <a href="/" class="back">
+            ← Back to Home
+        </a>
+
+    </div>
+
+</body>
+</html>

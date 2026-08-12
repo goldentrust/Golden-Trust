@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Team - Golden Trust</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            direction: ltr;
+        }
+
+        body {
+            background: #070707;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding-bottom: 100px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 18px;
+            border-bottom: 1px solid #1d1d1d;
+        }
+
+        .logo {
+            color: #d4af37;
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .profile {
+            color: #d4af37;
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-name {
+            font-size: 9px;
+            margin-top: 4px;
+        }
+
+        .content {
+            padding: 28px 18px;
+        }
+
+        .small-title {
+            color: #777;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 11px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .invite-card {
+            background: linear-gradient(
+                145deg,
+                #2a230c,
+                #111
+            );
+
+            border: 1px solid #4a3d18;
+            border-radius: 22px;
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+
+        .invite-title {
+            color: #d4af37;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .invite-text {
+            color: #888;
+            font-size: 10px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .invite-box {
+            display: flex;
+            gap: 8px;
+        }
+
+        .invite-input {
+            flex: 1;
+            min-width: 0;
+            padding: 13px;
+            background: #080808;
+            border: 1px solid #303030;
+            border-radius: 11px;
+            color: #aaa;
+            font-size: 10px;
+        }
+
+        .copy-button {
+            border: none;
+            border-radius: 11px;
+            padding: 0 15px;
+            background: #d4af37;
+            color: #080808;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 17px;
+            padding: 19px;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 10px;
+            margin-bottom: 9px;
+        }
+
+        .stat-value {
+            color: #d4af37;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .empty {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 17px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #666;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* Bottom navigation */
+
+        .bottom {
+            direction: ltr;
+
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            height: 80px;
+
+            background: #0a0a0a;
+
+            border-top: 1px solid #252525;
+
+            display: flex;
+            flex-direction: row;
+
+            justify-content: space-around;
+            align-items: center;
+
+            z-index: 9999;
+        }
+
+        .nav {
+            width: 20%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            color: #666;
+
+            text-align: center;
+
+            font-size: 10px;
+
+            cursor: pointer;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            line-height: 22px;
+            margin-bottom: 5px;
+        }
+
+        .nav.active {
+            color: #d4af37;
+        }
+
+        .nav:active {
+            transform: scale(.94);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP -->
+
+    <div class="top">
+
+        <div class="logo">
+            GOLDEN TRUST
+        </div>
+
+        <a href="/profile" class="profile">
+
+            <div class="profile-icon">
+                👤
+            </div>
+
+            <div class="profile-name">
+                Profile
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <div class="small-title">
+            ACCOUNT
+        </div>
+
+        <h1>
+            My Team
+        </h1>
+
+        <div class="subtitle">
+            Manage your referral information and track
+            your team activity.
+        </div>
+
+
+        <!-- INVITE -->
+
+        <div class="invite-card">
+
+            <div class="invite-title">
+                Invite Friends
+            </div>
+
+            <div class="invite-text">
+                Share your referral information with friends
+                and build your network.
+            </div>
+
+            <div class="invite-box">
+
+                <input
+                    class="invite-input"
+                    id="inviteLink"
+                    value="Golden Trust Referral"
+                    readonly
+                >
+
+                <button
+                    class="copy-button"
+                    onclick="copyInvite()"
+                >
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    TOTAL MEMBERS
+                </div>
+
+                <div class="stat-value">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    TEAM INCOME
+                </div>
+
+                <div class="stat-value">
+                    0.00
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    ACTIVE MEMBERS
+                </div>
+
+                <div class="stat-value">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    REFERRAL BONUS
+                </div>
+
+                <div class="stat-value">
+                    0.00
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMBERS -->
+
+        <div class="section-title">
+            Team Members
+        </div>
+
+        <div class="empty">
+            No team members yet.
+        </div>
+
+    </main>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <nav class="bottom">
+
+        <a href="/" class="nav">
+
+            <span class="nav-icon">
+                ⌂
+            </span>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a href="/team" class="nav active">
+
+            <span class="nav-icon">
+                ♧
+            </span>
+
+            <span>
+                Team
+            </span>
+
+        </a>
+
+
+        <a href="/plans" class="nav">
+
+            <span class="nav-icon">
+                ◈
+            </span>
+
+            <span>
+                Plans
+            </span>
+
+        </a>
+
+
+        <a href="/earn" class="nav">
+
+            <span class="nav-icon">
+                ★
+            </span>
+
+            <span>
+                Earn
+            </span>
+
+        </a>
+
+
+        <a href="/dashboard" class="nav">
+
+            <span class="nav-icon">
+                ▣
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <script>
+        function copyInvite() {
+
+            const input = document.getElementById("inviteLink");
+
+            navigator.clipboard.writeText(input.value);
+
+            const button = document.querySelector(".copy-button");
+
+            button.textContent = "Copied";
+
+            setTimeout(function () {
+                button.textContent = "Copy";
+            }, 1500);
+        }
+    </script>
+
+</body>
+</html>

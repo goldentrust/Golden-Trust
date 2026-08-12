@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile - Golden Trust</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            direction: ltr;
+        }
+
+        body {
+            background: #070707;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding-bottom: 100px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 18px;
+            border-bottom: 1px solid #1d1d1d;
+        }
+
+        .logo {
+            color: #d4af37;
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .back {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .content {
+            padding: 28px 18px;
+        }
+
+        .title {
+            font-size: 29px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 11px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .profile-card {
+            background: #111111;
+            border: 1px solid #292929;
+            border-radius: 22px;
+            padding: 24px 18px;
+            margin-bottom: 18px;
+        }
+
+        .photo-area {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .avatar {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #d4af37;
+            background: #181818;
+        }
+
+        .photo-button {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 15px;
+            border-radius: 11px;
+            background: #1b1b1b;
+            border: 1px solid #3a3a3a;
+            color: #d4af37;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        .field-label {
+            display: block;
+            color: #777;
+            font-size: 10px;
+            margin-bottom: 7px;
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #303030;
+            background: #080808;
+            color: #ffffff;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .field-input:focus {
+            border-color: #d4af37;
+        }
+
+        .field-input[readonly] {
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        .save-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #f2d675, #b58a1d);
+            color: #080808;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 11px;
+            background: #111;
+            border: 1px solid #292929;
+            color: #d4af37;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .account-info {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .info-title {
+            color: #d4af37;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #666;
+            font-size: 10px;
+        }
+
+        .info-value {
+            color: #aaa;
+            font-size: 10px;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .logout {
+            display: block;
+            width: 100%;
+            margin-top: 18px;
+            padding: 14px;
+            text-align: center;
+            border-radius: 13px;
+            border: 1px solid #522323;
+            color: #d87979;
+            font-size: 11px;
+        }
+
+        /* Bottom navigation */
+
+        .bottom-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 80px;
+
+            background: #0a0a0a;
+            border-top: 1px solid #252525;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+
+            direction: ltr;
+
+            z-index: 2147483647;
+        }
+
+        .bottom-item {
+            width: 20%;
+            height: 80px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            color: #666;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .bottom-icon {
+            font-size: 20px;
+            line-height: 22px;
+            margin-bottom: 5px;
+        }
+
+        .bottom-item.active {
+            color: #d4af37;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="top">
+
+        <div class="logo">
+            GOLDEN TRUST
+        </div>
+
+        <a href="/dashboard" class="back">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <div class="title">
+            Profile
+        </div>
+
+        <div class="subtitle">
+            Manage your profile information.
+        </div>
+
+
+        {% if message %}
+
+        <div class="message">
+            {{ message }}
+        </div>
+
+        {% endif %}
+
+
+        <div class="profile-card">
+
+            <!-- PHOTO -->
+
+            <div class="photo-area">
+
+                <div class="avatar-wrapper">
+
+                    {% if user.profile_image %}
+
+                        <img
+                            id="avatarPreview"
+                            class="avatar"
+                            src="{{ user.profile_image }}"
+                            alt="Profile"
+                        >
+
+                    {% else %}
+
+                        <div
+                            id="avatarPlaceholder"
+                            class="avatar"
+                            style="
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:42px;
+                                color:#d4af37;
+                            "
+                        >
+                            👤
+                        </div>
+
+                        <img
+                            id="avatarPreview"
+                            class="avatar"
+                            src=""
+                            alt="Profile"
+                            style="display:none;"
+                        >
+
+                    {% endif %}
+
+                </div>
+
+
+                <br>
+
+
+                <label
+                    for="photoInput"
+                    class="photo-button"
+                >
+                    Change Profile Photo
+                </label>
+
+                <input
+                    type="file"
+                    id="photoInput"
+                    name="profile_image"
+                    accept="image/*"
+                    form="profileForm"
+                >
+
+            </div>
+
+
+            <!-- PROFILE FORM -->
+
+            <form
+                id="profileForm"
+                method="POST"
+                action="/profile"
+                enctype="multipart/form-data"
+            >
+
+                <div class="field">
+
+                    <label class="field-label">
+                        Username
+                    </label>
+
+                    <input
+                        class="field-input"
+                        type="text"
+                        name="username"
+                        value="{{ user.username or '' }}"
+                        placeholder="Enter your username"
+                        maxlength="30"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label class="field-label">
+                        Email
+                    </label>
+
+                    <input
+                        class="field-input"
+                        type="email"
+                        value="{{ user.email or '' }}"
+                        readonly
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+                    Save Profile
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ACCOUNT INFO -->
+
+        <div class="account-info">
+
+            <div class="info-title">
+                Account Information
+            </div>
+
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    Username
+                </span>
+
+                <span class="info-value">
+                    {{ user.username or 'Not set' }}
+                </span>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    Email
+                </span>
+
+                <span class="info-value">
+                    {{ user.email or 'Not available' }}
+                </span>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    Account ID
+                </span>
+
+                <span class="info-value">
+                    {{ user.id or '—' }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="/logout"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </main>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <nav class="bottom-nav">
+
+        <a href="/" class="bottom-item">
+            <span class="bottom-icon">⌂</span>
+            <span>Home</span>
+        </a>
+
+
+        <a href="/team" class="bottom-item">
+            <span class="bottom-icon">♧</span>
+            <span>Team</span>
+        </a>
+
+
+        <a href="/plans" class="bottom-item">
+            <span class="bottom-icon">◈</span>
+            <span>Plans</span>
+        </a>
+
+
+        <a href="/earn" class="bottom-item">
+            <span class="bottom-icon">★</span>
+            <span>Earn</span>
+        </a>
+
+
+        <a href="/dashboard" class="bottom-item active">
+            <span class="bottom-icon">▣</span>
+            <span>Dashboard</span>
+        </a>
+
+    </nav>
+
+
+    <script>
+        const photoInput = document.getElementById("photoInput");
+        const avatarPreview = document.getElementById("avatarPreview");
+        const avatarPlaceholder = document.getElementById("avatarPlaceholder");
+
+        if (photoInput) {
+
+            photoInput.addEventListener("change", function () {
+
+                const file = this.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                if (!file.type.startsWith("image/")) {
+                    alert("Please select an image.");
+                    this.value = "";
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+
+                    avatarPreview.src = event.target.result;
+                    avatarPreview.style.display = "inline-block";
+
+                    if (avatarPlaceholder) {
+                        avatarPlaceholder.style.display = "none";
+                    }
+
+                };
+
+                reader.readAsDataURL(file);
+
+            });
+
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Golden Trust</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            direction: ltr;
+        }
+
+        body {
+            background: #070707;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding-bottom: 100px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* TOP */
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 18px 12px;
+        }
+
+        .logo {
+            color: #d4af37;
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .profile {
+            color: #d4af37;
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 43px;
+            height: 43px;
+            border: 1px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .profile-name {
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            padding: 18px;
+        }
+
+        .welcome-small {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .welcome-title {
+            font-size: 29px;
+            font-weight: bold;
+        }
+
+        /* ASSETS */
+
+        .assets {
+            margin: 0 18px 18px;
+            padding: 25px;
+            border-radius: 24px;
+            border: 1px solid #3b3015;
+            background: radial-gradient(
+                circle at top right,
+                #4a3b0d,
+                #181818 42%,
+                #0d0d0d
+            );
+        }
+
+        .assets-label {
+            color: #a89560;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .assets-number {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .assets-currency {
+            color: #d4af37;
+            font-size: 13px;
+        }
+
+        .assets-sub {
+            color: #777;
+            font-size: 11px;
+            margin-top: 12px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: #121212;
+            border: 1px solid #272727;
+            border-radius: 18px;
+            padding: 19px;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 10px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .gold {
+            color: #d4af37;
+        }
+
+        .green {
+            color: #45d18a;
+        }
+
+        /* SECTIONS */
+
+        .section-title {
+            padding: 0 18px 13px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* ACTIONS */
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 18px;
+            margin-bottom: 25px;
+        }
+
+        .action {
+            background: #121212;
+            border: 1px solid #292929;
+            border-radius: 17px;
+            padding: 19px;
+            transition: .2s;
+        }
+
+        .action:active {
+            transform: scale(.98);
+        }
+
+        .action-icon {
+            font-size: 23px;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .action-title {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .action-description {
+            color: #666;
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        /* WITHDRAW */
+
+        .withdraw-box {
+            margin: 0 18px 25px;
+            padding: 20px;
+            background: #111111;
+            border: 1px solid #292929;
+            border-radius: 20px;
+        }
+
+        .withdraw-title {
+            color: #d4af37;
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .withdraw-subtitle {
+            color: #666;
+            font-size: 10px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .amount-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 7px;
+        }
+
+        .field-label {
+            display: block;
+            color: #888;
+            font-size: 10px;
+            margin-bottom: 7px;
+        }
+
+        .amount-header .field-label {
+            margin-bottom: 0;
+        }
+
+        .balance-display {
+            color: #d4af37;
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .balance-display strong {
+            color: #ffffff;
+        }
+
+        .field-input,
+        .field-select {
+            width: 100%;
+            padding: 14px;
+            background: #080808;
+            color: #ffffff;
+            border: 1px solid #303030;
+            border-radius: 12px;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .field-input:focus,
+        .field-select:focus {
+            border-color: #d4af37;
+        }
+
+        /* FEE */
+
+        .fee-box {
+            background: #0b0b0b;
+            border: 1px solid #252525;
+            border-radius: 13px;
+            padding: 14px;
+            margin: 5px 0 16px;
+        }
+
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 10px;
+        }
+
+        .fee-label {
+            color: #777;
+        }
+
+        .fee-value {
+            color: #ddd;
+        }
+
+        .receive-value {
+            color: #45d18a;
+            font-weight: bold;
+        }
+
+        .withdraw-button {
+            width: 100%;
+            border: none;
+            padding: 15px;
+            border-radius: 13px;
+            background: linear-gradient(
+                135deg,
+                #f2d675,
+                #b58a1d
+            );
+            color: #080808;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .withdraw-button:active {
+            transform: scale(.98);
+        }
+
+        /* NOTICE */
+
+        .notice {
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid #252525;
+        }
+
+        .notice-item {
+            display: flex;
+            gap: 9px;
+            margin-bottom: 10px;
+            color: #777;
+            font-size: 9px;
+            line-height: 1.6;
+        }
+
+        .notice-number {
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #24200f;
+            color: #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        /* EMPTY */
+
+        .empty {
+            margin: 0 18px 20px;
+            padding: 25px;
+            text-align: center;
+            background: #101010;
+            border: 1px solid #252525;
+            border-radius: 16px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom {
+            direction: ltr;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 80px;
+            background: rgba(10, 10, 10, .98);
+            border-top: 1px solid #252525;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .nav {
+            direction: ltr;
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            text-align: center;
+            font-size: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+
+        .nav-icon {
+            display: block;
+            font-size: 21px;
+            line-height: 22px;
+            margin-bottom: 5px;
+        }
+
+        .nav.active {
+            color: #d4af37;
+        }
+
+        .nav:active {
+            transform: scale(.94);
+        }
+
+        @media (max-width: 360px) {
+
+            .welcome-title {
+                font-size: 25px;
+            }
+
+            .assets-number {
+                font-size: 30px;
+            }
+
+            .stat-value {
+                font-size: 15px;
+            }
+
+            .nav {
+                font-size: 9px;
+            }
+
+            .nav-icon {
+                font-size: 19px;
+            }
+
+            .balance-display {
+                font-size: 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP -->
+
+    <div class="top">
+
+        <div class="logo">
+            GOLDEN TRUST
+        </div>
+
+        <a href="/profile" class="profile">
+
+            <div class="profile-icon">
+
+                {% if user and user["profile_image"] %}
+
+                    <img
+                        src="{{ user['profile_image'] }}"
+                        alt="Profile"
+                        class="profile-image"
+                    >
+
+                {% else %}
+
+                    👤
+
+                {% endif %}
+
+            </div>
+
+            <div class="profile-name">
+                Profile
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+
+        <div class="welcome-small">
+            Welcome back,
+            {{ username or "User" }}
+        </div>
+
+        <div class="welcome-title">
+            Dashboard
+        </div>
+
+    </div>
+
+
+    <!-- TOTAL ASSETS -->
+
+    <div class="assets">
+
+        <div class="assets-label">
+            TOTAL ASSETS
+        </div>
+
+        <div class="assets-number">
+
+            {{ "%.2f"|format(balance|default(0)|float) }}
+
+            <span class="assets-currency">
+                USDT
+            </span>
+
+        </div>
+
+        <div class="assets-sub">
+            Your current account assets
+        </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                TOTAL DEPOSIT
+            </div>
+
+            <div class="stat-value gold">
+                0.00 USDT
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                DAILY INCOME
+            </div>
+
+            <div class="stat-value green">
+                0.00 USDT
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                TOTAL INCOME
+            </div>
+
+            <div class="stat-value">
+                0.00 USDT
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                REFERRAL INCOME
+            </div>
+
+            <div class="stat-value">
+                0.00 USDT
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="section-title">
+        Quick Actions
+    </div>
+
+
+    <div class="actions">
+
+        <a href="/deposit" class="action">
+
+            <div class="action-icon">
+                ↓
+            </div>
+
+            <div class="action-title">
+                Deposit
+            </div>
+
+            <div class="action-description">
+                Deposit options
+            </div>
+
+        </a>
+
+
+        <a href="#withdraw" class="action">
+
+            <div class="action-icon">
+                ↑
+            </div>
+
+            <div class="action-title">
+                Withdraw
+            </div>
+
+            <div class="action-description">
+                Withdraw USDT
+            </div>
+
+        </a>
+
+
+        <a href="/plans" class="action">
+
+            <div class="action-icon">
+                ◈
+            </div>
+
+            <div class="action-title">
+                Plans
+            </div>
+
+            <div class="action-description">
+                View plans
+            </div>
+
+        </a>
+
+
+        <a href="/team" class="action">
+
+            <div class="action-icon">
+                ♧
+            </div>
+
+            <div class="action-title">
+                My Team
+            </div>
+
+            <div class="action-description">
+                Referral team
+            </div>
+
+        </a>
+
+
+        <a href="/transactions" class="action">
+
+            <div class="action-icon">
+                ◷
+            </div>
+
+            <div class="action-title">
+                Transactions
+            </div>
+
+            <div class="action-description">
+                Account activity
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- WITHDRAW -->
+
+    <div
+        id="withdraw"
+        class="section-title"
+    >
+        Withdraw
+    </div>
+
+
+    <div class="withdraw-box">
+
+        <div class="withdraw-title">
+            Withdraw USDT
+        </div>
+
+        <div class="withdraw-subtitle">
+            Minimum withdrawal amount: 20 USDT
+        </div>
+
+
+        <!-- NETWORK -->
+
+        <div class="field">
+
+            <label class="field-label">
+                Network
+            </label>
+
+            <select
+                id="network"
+                class="field-select"
+            >
+
+                <option value="TRC20">
+                    USDT - TRC20
+                </option>
+
+                <option value="ERC20">
+                    USDT - ERC20
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- WALLET -->
+
+        <div class="field">
+
+            <label class="field-label">
+                Wallet Address
+            </label>
+
+            <input
+                id="walletAddress"
+                class="field-input"
+                type="text"
+                placeholder="Enter wallet address"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <!-- AMOUNT -->
+
+        <div class="field">
+
+            <div class="amount-header">
+
+                <label class="field-label">
+                    Amount
+                </label>
+
+                <span class="balance-display">
+
+                    Balance:
+
+                    <strong>
+                        {{ "%.2f"|format(balance|default(0)|float) }}
+                        USDT
+                    </strong>
+
+                </span>
+
+            </div>
+
+            <input
+                id="withdrawAmount"
+                class="field-input"
+                type="number"
+                min="20"
+                step="0.01"
+                max="{{ balance|default(0) }}"
+                placeholder="Minimum 20 USDT"
+            >
+
+        </div>
+
+
+        <!-- FEE -->
+
+        <div class="fee-box">
+
+            <div class="fee-row">
+
+                <span class="fee-label">
+                    Withdrawal amount
+                </span>
+
+                <span
+                    id="amountDisplay"
+                    class="fee-value"
+                >
+                    0.00 USDT
+                </span>
+
+            </div>
+
+
+            <div class="fee-row">
+
+                <span class="fee-label">
+                    Withdrawal fee
+                </span>
+
+                <span
+                    id="feeDisplay"
+                    class="fee-value"
+                >
+                    0.00 USDT
+                </span>
+
+            </div>
+
+
+            <div class="fee-row">
+
+                <span class="fee-label">
+                    You receive
+                </span>
+
+                <span
+                    id="receiveDisplay"
+                    class="receive-value"
+                >
+                    0.00 USDT
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="withdraw-button"
+            onclick="submitWithdraw()"
+        >
+            Submit Withdrawal
+        </button>
+
+
+        <!-- NOTICES -->
+
+        <div class="notice">
+
+            <div class="notice-item">
+
+                <span class="notice-number">
+                    1
+                </span>
+
+                <span>
+                    A 10% withdrawal commission is deducted
+                    from the withdrawal amount.
+                </span>
+
+            </div>
+
+
+            <div class="notice-item">
+
+                <span class="notice-number">
+                    2
+                </span>
+
+                <span>
+                    Withdrawals are normally processed within
+                    approximately 2 to 5 minutes after approval.
+                </span>
+
+            </div>
+
+
+            <div class="notice-item">
+
+                <span class="notice-number">
+                    3
+                </span>
+
+                <span>
+                    Please carefully verify the wallet address
+                    and selected network. Losses caused by an
+                    incorrect address or network are the
+                    responsibility of the customer.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RECENT TRANSACTIONS -->
+
+    <div class="section-title">
+        Recent Transactions
+    </div>
+
+
+    <div class="empty">
+        No transactions yet.
+    </div>
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav class="bottom">
+
+        <a href="/" class="nav">
+
+            <span class="nav-icon">
+                ⌂
+            </span>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a href="/team" class="nav">
+
+            <span class="nav-icon">
+                ♧
+            </span>
+
+            <span>
+                Team
+            </span>
+
+        </a>
+
+
+        <a href="/plans" class="nav">
+
+            <span class="nav-icon">
+                ◈
+            </span>
+
+            <span>
+                Plans
+            </span>
+
+        </a>
+
+
+        <a href="/earn" class="nav">
+
+            <span class="nav-icon">
+                ★
+            </span>
+
+            <span>
+                Earn
+            </span>
+
+        </a>
+
+
+        <a href="/dashboard" class="nav active">
+
+            <span class="nav-icon">
+                ▣
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <script>
+
+        const amountInput =
+            document.getElementById("withdrawAmount");
+
+        const amountDisplay =
+            document.getElementById("amountDisplay");
+
+        const feeDisplay =
+            document.getElementById("feeDisplay");
+
+        const receiveDisplay =
+            document.getElementById("receiveDisplay");
+
+        const balance =
+            parseFloat(
+                "{{ balance|default(0)|float }}"
+            ) || 0;
+
+
+        function updateWithdrawalCalculation() {
+
+            let amount =
+                parseFloat(amountInput.value) || 0;
+
+            const fee =
+                amount * 0.10;
+
+            const receive =
+                amount - fee;
+
+
+            amountDisplay.textContent =
+                amount.toFixed(2) + " USDT";
+
+            feeDisplay.textContent =
+                fee.toFixed(2) + " USDT";
+
+            receiveDisplay.textContent =
+                Math.max(receive, 0).toFixed(2)
+                + " USDT";
+        }
+
+
+        amountInput.addEventListener(
+            "input",
+            updateWithdrawalCalculation
+        );
+
+
+        function submitWithdraw() {
+
+            const amount =
+                parseFloat(amountInput.value) || 0;
+
+            const address =
+                document
+                    .getElementById("walletAddress")
+                    .value
+                    .trim();
+
+
+            if (amount < 20) {
+
+                alert(
+                    "Minimum withdrawal amount is 20 USDT."
+                );
+
+                return;
+            }
+
+
+            if (amount > balance) {
+
+                alert(
+                    "Withdrawal amount cannot exceed your available balance."
+                );
+
+                return;
+            }
+
+
+            if (!address) {
+
+                alert(
+                    "Please enter your wallet address."
+                );
+
+                return;
+            }
+
+
+            alert(
+                "Withdrawal interface is ready. " +
+                "Actual withdrawal processing will be " +
+                "enabled after the secure backend is connected."
+            );
+        }
+
+    </script>
+
+</body>
+</html>

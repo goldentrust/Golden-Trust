@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit - Golden Trust</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #070707;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding-bottom: 95px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 18px;
+        }
+
+        .logo {
+            color: #d4af37;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .profile {
+            text-align: center;
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        }
+
+        .profile-name {
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .page-title {
+            padding: 12px 18px 22px;
+        }
+
+        .page-title h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .page-title p {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .card {
+            margin: 0 18px 18px;
+            padding: 22px;
+            background: #121212;
+            border: 1px solid #292929;
+            border-radius: 22px;
+        }
+
+        .label {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .network-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .network {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            background: #0d0d0d;
+            color: #aaa;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .network.active {
+            border-color: #d4af37;
+            color: #d4af37;
+            background: #18150b;
+        }
+
+        .address {
+            background: #090909;
+            border: 1px solid #303030;
+            border-radius: 13px;
+            padding: 15px;
+            color: #d4af37;
+            font-size: 12px;
+            line-height: 1.6;
+            word-break: break-all;
+            margin-bottom: 12px;
+        }
+
+        .copy {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #f2d675, #b58a1d);
+            color: #080808;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .status {
+            text-align: center;
+            color: #45d18a;
+            font-size: 12px;
+            margin-top: 12px;
+            min-height: 16px;
+        }
+
+        .warning {
+            margin-top: 18px;
+            padding: 15px;
+            border-radius: 13px;
+            background: #17140a;
+            border: 1px solid #3a3015;
+            color: #a89560;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .back {
+            display: block;
+            margin: 0 18px;
+            padding: 15px;
+            text-align: center;
+            border-radius: 13px;
+            border: 1px solid #333;
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 80px;
+            background: rgba(10,10,10,.98);
+            border-top: 1px solid #252525;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: #666;
+            text-align: center;
+            font-size: 10px;
+            text-decoration: none;
+        }
+
+        .nav-icon {
+            display: block;
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item.active {
+            color: #d4af37;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="top">
+
+    <div class="logo">
+        GOLDEN TRUST
+    </div>
+
+    <a href="/login" class="profile">
+        <div class="profile-icon">👤</div>
+        <div class="profile-name">Profile</div>
+    </a>
+
+</div>
+
+
+<div class="page-title">
+
+    <h1>Deposit</h1>
+
+    <p>
+        Select a network to view the deposit details
+    </p>
+
+</div>
+
+
+<div class="card">
+
+    <div class="label">
+        SELECT NETWORK
+    </div>
+
+    <div class="network-buttons">
+
+        <button
+            type="button"
+            class="network active"
+            id="trc20"
+            onclick="selectNetwork('TRC20')">
+            TRC20
+        </button>
+
+        <button
+            type="button"
+            class="network"
+            id="erc20"
+            onclick="selectNetwork('ERC20')">
+            ERC20
+        </button>
+
+    </div>
+
+
+    <div class="label">
+        <span id="networkName">TRC20</span> DEPOSIT ADDRESS
+    </div>
+
+
+    <div class="address" id="address">
+        TDNg4tdCCS3qFfHPwgXarGr59HiMmMXjAV
+    </div>
+
+
+    <button
+        type="button"
+        class="copy"
+        onclick="copyAddress()">
+        Copy Address
+    </button>
+
+
+    <div class="status" id="status"></div>
+
+
+    <div class="warning">
+        Make sure the selected network matches the network
+        used for the transfer. Sending assets through an
+        unsupported network may result in permanent loss.
+    </div>
+
+</div>
+
+
+<a href="/dashboard" class="back">
+    Back to Dashboard
+</a>
+
+
+<div class="bottom-nav">
+
+    <a href="/" class="nav-item">
+        <span class="nav-icon">⌂</span>
+        Home
+    </a>
+
+    <a href="/team" class="nav-item">
+        <span class="nav-icon">♧</span>
+        Team
+    </a>
+
+    <a href="/plans" class="nav-item">
+        <span class="nav-icon">◈</span>
+        Plans
+    </a>
+
+    <a href="#" class="nav-item">
+        <span class="nav-icon">★</span>
+        Earn
+    </a>
+
+    <a href="/dashboard" class="nav-item active">
+        <span class="nav-icon">▣</span>
+        Dashboard
+    </a>
+
+</div>
+
+
+<script>
+
+const addresses = {
+
+    TRC20: "TDNg4tdCCS3qFfHPwgXarGr59HiMmMXjAV",
+
+    ERC20: "0x9fe244187b7e5e48698f1b6ed51775d4d8b58a82"
+
+};
+
+
+function selectNetwork(network) {
+
+    document
+        .getElementById("trc20")
+        .classList.remove("active");
+
+    document
+        .getElementById("erc20")
+        .classList.remove("active");
+
+
+    if (network === "TRC20") {
+
+        document
+            .getElementById("trc20")
+            .classList.add("active");
+
+    } else {
+
+        document
+            .getElementById("erc20")
+            .classList.add("active");
+
+    }
+
+
+    document
+        .getElementById("networkName")
+        .textContent = network;
+
+
+    document
+        .getElementById("address")
+        .textContent = addresses[network];
+
+
+    document
+        .getElementById("status")
+        .textContent = "";
+
+}
+
+
+async function copyAddress() {
+
+    const address =
+        document
+        .getElementById("address")
+        .textContent;
+
+
+    try {
+
+        await navigator.clipboard.writeText(address);
+
+        document
+            .getElementById("status")
+            .textContent = "Address copied successfully";
+
+    }
+
+    catch (error) {
+
+        document
+            .getElementById("status")
+            .textContent =
+            "Copy failed. Please copy the address manually.";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

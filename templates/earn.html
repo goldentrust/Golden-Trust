@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Earn - Golden Trust</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            direction: ltr;
+        }
+
+        body {
+            background: #070707;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding-bottom: 100px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 18px;
+            border-bottom: 1px solid #1d1d1d;
+        }
+
+        .logo {
+            color: #d4af37;
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .profile {
+            color: #d4af37;
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-name {
+            font-size: 9px;
+            margin-top: 4px;
+        }
+
+        .content {
+            padding: 28px 18px;
+        }
+
+        .small-title {
+            color: #777;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 11px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .income-card {
+            background: linear-gradient(
+                145deg,
+                #30270d,
+                #111111
+            );
+
+            border: 1px solid #4a3d18;
+            border-radius: 22px;
+            padding: 24px;
+            margin-bottom: 18px;
+        }
+
+        .income-label {
+            color: #a89560;
+            font-size: 10px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .income-value {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .income-currency {
+            color: #d4af37;
+            font-size: 12px;
+        }
+
+        .income-description {
+            color: #777;
+            font-size: 10px;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 12px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 17px;
+            padding: 19px;
+        }
+
+        .card-icon {
+            color: #d4af37;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .card-value {
+            color: #d4af37;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .card-text {
+            color: #666;
+            font-size: 9px;
+            line-height: 1.6;
+            margin-top: 6px;
+        }
+
+        .info {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 17px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .info-title {
+            color: #d4af37;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        .info-text {
+            color: #777;
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        /* BOTTOM NAVIGATION */
+
+        .bottom-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 80px;
+
+            display: flex;
+            flex-direction: row;
+
+            background: #0a0a0a;
+            border-top: 1px solid #252525;
+
+            z-index: 2147483647;
+
+            direction: ltr;
+
+            pointer-events: auto;
+        }
+
+        .bottom-button {
+            appearance: none;
+            -webkit-appearance: none;
+
+            width: 20%;
+            height: 80px;
+
+            border: 0;
+            outline: 0;
+
+            padding: 0;
+            margin: 0;
+
+            background: transparent;
+
+            color: #666;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+
+            cursor: pointer;
+
+            pointer-events: auto;
+            touch-action: manipulation;
+        }
+
+        .bottom-button.active {
+            color: #d4af37;
+        }
+
+        .bottom-icon {
+            display: block;
+
+            font-size: 20px;
+            line-height: 22px;
+
+            margin-bottom: 5px;
+
+            pointer-events: none;
+        }
+
+        .bottom-label {
+            pointer-events: none;
+        }
+
+        .bottom-button:active {
+            transform: scale(.94);
+        }
+
+        @media (max-width: 360px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-button {
+                font-size: 9px;
+            }
+
+            .bottom-icon {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP -->
+
+    <div class="top">
+
+        <div class="logo">
+            GOLDEN TRUST
+        </div>
+
+        <a href="/profile" class="profile">
+
+            <div class="profile-icon">
+                👤
+            </div>
+
+            <div class="profile-name">
+                Profile
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <div class="small-title">
+            ACCOUNT
+        </div>
+
+        <h1>
+            Earn
+        </h1>
+
+        <div class="subtitle">
+            View your earning information and account income.
+        </div>
+
+
+        <div class="income-card">
+
+            <div class="income-label">
+                TOTAL EARNINGS
+            </div>
+
+            <div class="income-value">
+                0.00
+                <span class="income-currency">
+                    USDT
+                </span>
+            </div>
+
+            <div class="income-description">
+                Your current recorded earnings will appear here.
+            </div>
+
+        </div>
+
+
+        <div class="section-title">
+            Earnings Overview
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ★
+                </div>
+
+                <div class="card-title">
+                    Daily Income
+                </div>
+
+                <div class="card-value">
+                    0.00
+                </div>
+
+                <div class="card-text">
+                    Current daily income.
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ◈
+                </div>
+
+                <div class="card-title">
+                    Plan Income
+                </div>
+
+                <div class="card-value">
+                    0.00
+                </div>
+
+                <div class="card-text">
+                    Income from active plans.
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ♧
+                </div>
+
+                <div class="card-title">
+                    Team Income
+                </div>
+
+                <div class="card-value">
+                    0.00
+                </div>
+
+                <div class="card-text">
+                    Referral team income.
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ◷
+                </div>
+
+                <div class="card-title">
+                    Total Income
+                </div>
+
+                <div class="card-value">
+                    0.00
+                </div>
+
+                <div class="card-text">
+                    Total recorded income.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-title">
+            Information
+        </div>
+
+
+        <div class="info">
+
+            <div class="info-title">
+                Earnings Activity
+            </div>
+
+            <div class="info-text">
+                Your earnings and income activity will be
+                displayed here as your account becomes active.
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <nav class="bottom-nav">
+
+        <button
+            type="button"
+            class="bottom-button"
+            onclick="goTo('/')"
+        >
+            <span class="bottom-icon">⌂</span>
+            <span class="bottom-label">Home</span>
+        </button>
+
+
+        <button
+            type="button"
+            class="bottom-button"
+            onclick="goTo('/team')"
+        >
+            <span class="bottom-icon">♧</span>
+            <span class="bottom-label">Team</span>
+        </button>
+
+
+        <button
+            type="button"
+            class="bottom-button"
+            onclick="goTo('/plans')"
+        >
+            <span class="bottom-icon">◈</span>
+            <span class="bottom-label">Plans</span>
+        </button>
+
+
+        <button
+            type="button"
+            class="bottom-button active"
+            onclick="goTo('/earn')"
+        >
+            <span class="bottom-icon">★</span>
+            <span class="bottom-label">Earn</span>
+        </button>
+
+
+        <button
+            type="button"
+            class="bottom-button"
+            onclick="goTo('/dashboard')"
+        >
+            <span class="bottom-icon">▣</span>
+            <span class="bottom-label">Dashboard</span>
+        </button>
+
+    </nav>
+
+
+    <script>
+        function goTo(path) {
+            window.location.assign(path);
+        }
+    </script>
+
+</body>
+</html>

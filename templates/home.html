@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Golden Trust</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            direction: ltr;
+        }
+
+        body {
+            background: #070707;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding-bottom: 100px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 18px;
+            border-bottom: 1px solid #181818;
+        }
+
+        .logo {
+            color: #d4af37;
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-btn {
+            color: #d4af37;
+            background: #111;
+            border: 1px solid #4a3d18;
+            border-radius: 18px;
+            padding: 9px 12px;
+            font-size: 10px;
+        }
+
+        .hero {
+            padding: 42px 20px 28px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            color: #d4af37;
+            background: #121009;
+            border: 1px solid #4a3d18;
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-size: 10px;
+            letter-spacing: .7px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 span {
+            color: #d4af37;
+        }
+
+        .hero p {
+            color: #888;
+            font-size: 12px;
+            line-height: 1.7;
+            max-width: 480px;
+            margin: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 23px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px 10px;
+            border-radius: 13px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .primary {
+            color: #080808;
+            background: linear-gradient(135deg, #f1d66d, #b38a1c);
+        }
+
+        .secondary {
+            color: #d4af37;
+            background: #111;
+            border: 1px solid #4a3d18;
+        }
+
+        .section {
+            padding: 0 18px;
+            margin: 25px 0;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .section-subtitle {
+            color: #777;
+            font-size: 10px;
+            line-height: 1.6;
+            margin-bottom: 13px;
+        }
+
+        /* Market */
+
+        .market-card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .market-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            border-bottom: 1px solid #222;
+        }
+
+        .market-row:last-child {
+            border-bottom: none;
+        }
+
+        .coin {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .coin-icon {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #3a3a3a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .coin-name {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .coin-symbol {
+            color: #666;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .price {
+            text-align: right;
+        }
+
+        .price-value {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .price-change {
+            color: #45d18a;
+            font-size: 9px;
+            margin-top: 4px;
+        }
+
+        /* Information */
+
+        .notice {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .notice-title {
+            color: #d4af37;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .notice-text {
+            color: #777;
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        /* Features */
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .feature {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 17px;
+            padding: 18px;
+        }
+
+        .feature-icon {
+            color: #d4af37;
+            font-size: 21px;
+            margin-bottom: 9px;
+        }
+
+        .feature-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .feature-text {
+            color: #666;
+            font-size: 9px;
+            line-height: 1.6;
+        }
+
+        /* Settings */
+
+        .settings-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 17px;
+            padding: 17px;
+        }
+
+        .settings-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .settings-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: #181818;
+            color: #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .settings-title {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .settings-text {
+            color: #666;
+            font-size: 9px;
+            margin-top: 4px;
+        }
+
+        .arrow {
+            color: #777;
+            font-size: 18px;
+        }
+
+        /* Bottom navigation */
+
+        .bottom-nav {
+            position: fixed;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 80px;
+
+            background: #0a0a0a;
+            border-top: 1px solid #252525;
+
+            display: flex;
+            flex-direction: row;
+
+            justify-content: space-around;
+            align-items: center;
+
+            direction: ltr;
+
+            z-index: 2147483647;
+
+            pointer-events: auto;
+        }
+
+        .bottom-item {
+            width: 20%;
+            height: 80px;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            color: #666;
+
+            font-size: 10px;
+            text-align: center;
+
+            cursor: pointer;
+
+            pointer-events: auto;
+            touch-action: manipulation;
+        }
+
+        .bottom-icon {
+            font-size: 20px;
+            line-height: 22px;
+            margin-bottom: 5px;
+
+            pointer-events: none;
+        }
+
+        .bottom-item.active {
+            color: #d4af37;
+        }
+
+        .bottom-item:active {
+            transform: scale(.94);
+        }
+
+        .footer {
+            text-align: center;
+            color: #555;
+            font-size: 9px;
+            padding: 20px;
+        }
+
+        @media (max-width: 360px) {
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-item {
+                font-size: 9px;
+            }
+
+            .bottom-icon {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="top">
+
+        <div class="logo">
+            GOLDEN TRUST
+        </div>
+
+        <div class="top-right">
+
+            {% if session.get("user_id") %}
+
+                <a href="/dashboard" class="top-btn">
+                    Dashboard
+                </a>
+
+            {% else %}
+
+                <a href="/login" class="top-btn">
+                    Login
+                </a>
+
+                <a href="/register" class="top-btn">
+                    Sign Up
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="badge">
+            GOLDEN TRUST PLATFORM
+        </div>
+
+        <h1>
+            Your Digital
+            <span>Asset Hub</span>
+        </h1>
+
+        <p>
+            Access your account, review available plans,
+            monitor market information and manage your
+            digital asset activity from one place.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            {% if session.get("user_id") %}
+
+                <a href="/dashboard" class="btn primary">
+                    Open Dashboard
+                </a>
+
+                <a href="/plans" class="btn secondary">
+                    View Plans
+                </a>
+
+            {% else %}
+
+                <a href="/register" class="btn primary">
+                    Create Account
+                </a>
+
+                <a href="/plans" class="btn secondary">
+                    View Plans
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- MARKET -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Market Overview
+        </div>
+
+        <div class="section-subtitle">
+            Live market prices will appear here.
+        </div>
+
+
+        <div class="market-card">
+
+            <div class="market-row">
+
+                <div class="coin">
+
+                    <div class="coin-icon">
+                        ₿
+                    </div>
+
+                    <div>
+
+                        <div class="coin-name">
+                            Bitcoin
+                        </div>
+
+                        <div class="coin-symbol">
+                            BTC
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="price">
+
+                    <div class="price-value">
+                        Loading...
+                    </div>
+
+                    <div class="price-change">
+                        Live Market
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="market-row">
+
+                <div class="coin">
+
+                    <div class="coin-icon">
+                        Ξ
+                    </div>
+
+                    <div>
+
+                        <div class="coin-name">
+                            Ethereum
+                        </div>
+
+                        <div class="coin-symbol">
+                            ETH
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="price">
+
+                    <div class="price-value">
+                        Loading...
+                    </div>
+
+                    <div class="price-change">
+                        Live Market
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="market-row">
+
+                <div class="coin">
+
+                    <div class="coin-icon">
+                        T
+                    </div>
+
+                    <div>
+
+                        <div class="coin-name">
+                            Tether
+                        </div>
+
+                        <div class="coin-symbol">
+                            USDT
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="price">
+
+                    <div class="price-value">
+                        Loading...
+                    </div>
+
+                    <div class="price-change">
+                        Live Market
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INFORMATION -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Platform Information
+        </div>
+
+
+        <div class="notice">
+
+            <div class="notice-title">
+                Stay Informed
+            </div>
+
+            <div class="notice-text">
+                Platform announcements, market information
+                and important updates can be displayed here.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Platform Features
+        </div>
+
+        <div class="section-subtitle">
+            Access the main areas of your account.
+        </div>
+
+
+        <div class="features">
+
+            <a href="/plans" class="feature">
+
+                <div class="feature-icon">
+                    ◈
+                </div>
+
+                <div class="feature-title">
+                    Plans
+                </div>
+
+                <div class="feature-text">
+                    Review available packages.
+                </div>
+
+            </a>
+
+
+            <a href="/dashboard" class="feature">
+
+                <div class="feature-icon">
+                    ▣
+                </div>
+
+                <div class="feature-title">
+                    Dashboard
+                </div>
+
+                <div class="feature-text">
+                    Manage your account.
+                </div>
+
+            </a>
+
+
+            <a href="/transactions" class="feature">
+
+                <div class="feature-icon">
+                    ◷
+                </div>
+
+                <div class="feature-title">
+                    Transactions
+                </div>
+
+                <div class="feature-text">
+                    View account activity.
+                </div>
+
+            </a>
+
+
+            <a href="/earn" class="feature">
+
+                <div class="feature-icon">
+                    ★
+                </div>
+
+                <div class="feature-title">
+                    Earn
+                </div>
+
+                <div class="feature-text">
+                    View earning information.
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Account
+        </div>
+
+
+        <a href="/settings" class="settings-card">
+
+            <div class="settings-left">
+
+                <div class="settings-icon">
+                    ⚙
+                </div>
+
+                <div>
+
+                    <div class="settings-title">
+                        Settings
+                    </div>
+
+                    <div class="settings-text">
+                        Account and platform settings
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="arrow">
+                ›
+            </div>
+
+        </a>
+
+    </section>
+
+
+    <div class="footer">
+        © 2026 Golden Trust
+    </div>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <nav class="bottom-nav">
+
+        <a href="/" class="bottom-item active">
+            <span class="bottom-icon">⌂</span>
+            <span>Home</span>
+        </a>
+
+
+        <a href="/team" class="bottom-item">
+            <span class="bottom-icon">♧</span>
+            <span>Team</span>
+        </a>
+
+
+        <a href="/plans" class="bottom-item">
+            <span class="bottom-icon">◈</span>
+            <span>Plans</span>
+        </a>
+
+
+        <a href="/earn" class="bottom-item">
+            <span class="bottom-icon">★</span>
+            <span>Earn</span>
+        </a>
+
+
+        <a href="/dashboard" class="bottom-item">
+            <span class="bottom-icon">▣</span>
+            <span>Dashboard</span>
+        </a>
+
+    </nav>
+
+</body>
+</html>
