@@ -1,528 +1,774 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Earn - Golden Trust</title>
+<title>Earn - Golden Trust</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-        html,
-        body {
-            width: 100%;
-            min-height: 100%;
-            direction: ltr;
-        }
+html,body{
+    width:100%;
+    min-height:100%;
+    direction:ltr;
+}
 
-        body {
-            background: #070707;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            padding-bottom: 100px;
-        }
+body{
+    background:#070707;
+    color:#fff;
+    font-family:Arial,sans-serif;
+    padding-bottom:100px;
+    opacity:0;
+    transition:opacity .35s ease;
+}
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
+body.page-ready{
+    opacity:1;
+}
 
-        .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 18px;
-            border-bottom: 1px solid #1d1d1d;
-        }
+body.page-exit{
+    opacity:0;
+}
 
-        .logo {
-            color: #d4af37;
-            font-size: 21px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-        }
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-        .profile {
-            color: #d4af37;
-            text-align: center;
-        }
+/* TOP */
 
-        .profile-icon {
-            width: 42px;
-            height: 42px;
-            border: 1px solid #d4af37;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 18px 12px;
+}
 
-        .profile-name {
-            font-size: 9px;
-            margin-top: 4px;
-        }
+.logo{
+    color:#d4af37;
+    font-size:21px;
+    font-weight:bold;
+    letter-spacing:1.5px;
+}
 
-        .content {
-            padding: 28px 18px;
-        }
+.profile{
+    color:#d4af37;
+    text-align:center;
+}
 
-        .small-title {
-            color: #777;
-            font-size: 11px;
-            margin-bottom: 7px;
-        }
+.profile-icon{
+    width:43px;
+    height:43px;
+    border:1px solid #d4af37;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:#111;
+    font-size:20px;
+}
 
-        h1 {
-            font-size: 30px;
-            margin-bottom: 9px;
-        }
+.profile-image{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+}
 
-        .subtitle {
-            color: #777;
-            font-size: 11px;
-            line-height: 1.7;
-            margin-bottom: 25px;
-        }
+.profile-name{
+    font-size:10px;
+    margin-top:4px;
+}
 
-        .income-card {
-            background: linear-gradient(
-                145deg,
-                #30270d,
-                #111111
-            );
+/* CONTENT */
 
-            border: 1px solid #4a3d18;
-            border-radius: 22px;
-            padding: 24px;
-            margin-bottom: 18px;
-        }
+.content{
+    padding:18px;
+}
 
-        .income-label {
-            color: #a89560;
-            font-size: 10px;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
+.small-title{
+    color:#777;
+    font-size:12px;
+    margin-bottom:7px;
+}
 
-        .income-value {
-            font-size: 32px;
-            font-weight: bold;
-        }
+h1{
+    font-size:29px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
 
-        .income-currency {
-            color: #d4af37;
-            font-size: 12px;
-        }
+.subtitle{
+    color:#777;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:24px;
+}
 
-        .income-description {
-            color: #777;
-            font-size: 10px;
-            margin-top: 10px;
-            line-height: 1.6;
-        }
+/* TOTAL */
 
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 25px 0 12px;
-        }
+.income-card{
+    padding:25px;
+    margin-bottom:25px;
+    border-radius:24px;
+    border:1px solid #3b3015;
 
-        .cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
+    background:radial-gradient(
+        circle at top right,
+        #4a3b0d,
+        #181818 42%,
+        #0d0d0d
+    );
+}
 
-        .card {
-            background: #111;
-            border: 1px solid #292929;
-            border-radius: 17px;
-            padding: 19px;
-        }
+.income-label{
+    color:#a89560;
+    font-size:11px;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
 
-        .card-icon {
-            color: #d4af37;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
+.income-value{
+    font-size:36px;
+    font-weight:bold;
+}
 
-        .card-title {
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
+.income-currency{
+    color:#d4af37;
+    font-size:13px;
+}
 
-        .card-value {
-            color: #d4af37;
-            font-size: 17px;
-            font-weight: bold;
-        }
+.income-description{
+    color:#777;
+    font-size:11px;
+    margin-top:12px;
+    line-height:1.6;
+}
 
-        .card-text {
-            color: #666;
-            font-size: 9px;
-            line-height: 1.6;
-            margin-top: 6px;
-        }
+/* SECTION */
 
-        .info {
-            background: #111;
-            border: 1px solid #292929;
-            border-radius: 17px;
-            padding: 20px;
-            margin-top: 18px;
-        }
+.section-title{
+    font-size:18px;
+    font-weight:bold;
+    margin:25px 0 13px;
+}
 
-        .info-title {
-            color: #d4af37;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 9px;
-        }
+/* TASK */
 
-        .info-text {
-            color: #777;
-            font-size: 10px;
-            line-height: 1.7;
-        }
+.task-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
 
-        /* BOTTOM NAVIGATION */
+    background:linear-gradient(
+        135deg,
+        rgba(212,175,55,.55),
+        rgba(154,119,23,.48)
+    );
 
-        .bottom-nav {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
+    border:1px solid rgba(212,175,55,.45);
+    border-radius:17px;
+    padding:17px 16px;
 
-            width: 100%;
-            height: 80px;
+    opacity:.58;
+    cursor:not-allowed;
 
-            display: flex;
-            flex-direction: row;
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25);
+}
 
-            background: #0a0a0a;
-            border-top: 1px solid #252525;
+.task-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+}
 
-            z-index: 2147483647;
+.task-icon{
+    width:40px;
+    height:40px;
+    flex-shrink:0;
+    border-radius:12px;
+    background:rgba(0,0,0,.18);
+    color:#080808;
 
-            direction: ltr;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-            pointer-events: auto;
-        }
+    font-size:19px;
+    font-weight:bold;
+}
 
-        .bottom-button {
-            appearance: none;
-            -webkit-appearance: none;
+.task-title{
+    color:#080808;
+    font-size:13px;
+    font-weight:bold;
+}
 
-            width: 20%;
-            height: 80px;
+.task-count{
+    color:#080808;
+    font-size:10px;
+    font-weight:bold;
+    margin-top:5px;
+    opacity:.75;
+}
 
-            border: 0;
-            outline: 0;
+.task-lock{
+    color:#080808;
+    font-size:21px;
+    flex-shrink:0;
+}
 
-            padding: 0;
-            margin: 0;
+/* EARNINGS CARDS */
 
-            background: transparent;
+.cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
 
-            color: #666;
+.card{
+    background:#121212;
+    border:1px solid #292929;
+    border-radius:18px;
+    padding:19px;
+}
 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+.card-icon{
+    color:#d4af37;
+    font-size:22px;
+    margin-bottom:10px;
+}
 
-            font-family: Arial, sans-serif;
-            font-size: 10px;
+.card-title{
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
 
-            cursor: pointer;
+.card-value{
+    color:#d4af37;
+    font-size:17px;
+    font-weight:bold;
+}
 
-            pointer-events: auto;
-            touch-action: manipulation;
-        }
+.card-text{
+    color:#666;
+    font-size:9px;
+    line-height:1.6;
+    margin-top:6px;
+}
 
-        .bottom-button.active {
-            color: #d4af37;
-        }
+/* INFORMATION */
 
-        .bottom-icon {
-            display: block;
+.info{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:18px;
+    padding:20px;
+    margin-top:18px;
+}
 
-            font-size: 20px;
-            line-height: 22px;
+.info-title{
+    color:#d4af37;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:9px;
+}
 
-            margin-bottom: 5px;
+.info-text{
+    color:#777;
+    font-size:10px;
+    line-height:1.7;
+}
 
-            pointer-events: none;
-        }
+/* =========================
+   FIXED BOTTOM NAV
+========================= */
 
-        .bottom-label {
-            pointer-events: none;
-        }
+.bottom{
+    position:fixed !important;
 
-        .bottom-button:active {
-            transform: scale(.94);
-        }
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
 
-        @media (max-width: 360px) {
+    width:100% !important;
+    height:80px !important;
 
-            .cards {
-                grid-template-columns: 1fr;
-            }
+    background:rgba(10,10,10,.98);
 
-            .bottom-button {
-                font-size: 9px;
-            }
+    border-top:1px solid #252525;
 
-            .bottom-icon {
-                font-size: 18px;
-            }
-        }
-    </style>
+    display:flex;
+
+    flex-direction:row;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    z-index:9999999 !important;
+
+    transform:translateZ(0);
+    -webkit-transform:translateZ(0);
+
+    padding:0;
+    margin:0;
+}
+
+.nav{
+    direction:ltr;
+
+    width:20%;
+    height:80px;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#666;
+
+    text-align:center;
+    font-size:10px;
+
+    padding:8px 0;
+
+    cursor:pointer;
+    transition:.2s;
+
+    flex-shrink:0;
+}
+
+.nav-icon{
+    display:block;
+    font-size:21px;
+    line-height:22px;
+    margin-bottom:5px;
+}
+
+.nav.active{
+    color:#d4af37;
+}
+
+.nav:active{
+    transform:scale(.94);
+}
+
+/* MOBILE */
+
+@media(max-width:360px){
+
+    h1{
+        font-size:25px;
+    }
+
+    .income-value{
+        font-size:30px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .nav{
+        font-size:9px;
+    }
+
+    .nav-icon{
+        font-size:19px;
+    }
+
+    .task-title{
+        font-size:12px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- TOP -->
+<!-- TOP -->
 
-    <div class="top">
+<div class="top">
 
-        <div class="logo">
-            GOLDEN TRUST
+    <div class="logo">
+        GOLDEN TRUST
+    </div>
+
+    <a
+        href="/profile?next=/earn"
+        class="profile"
+    >
+
+        <div class="profile-icon">
+
+            {% if user and user["profile_image"] %}
+
+                <img
+                    src="{{ user['profile_image'] }}"
+                    alt="Profile"
+                    class="profile-image"
+                >
+
+            {% else %}
+
+                👤
+
+            {% endif %}
+
         </div>
 
-        <a href="/profile" class="profile">
+        <div class="profile-name">
+            Profile
+        </div>
 
-            <div class="profile-icon">
-                👤
-            </div>
+    </a>
 
-            <div class="profile-name">
-                Profile
-            </div>
+</div>
 
-        </a>
+
+<!-- CONTENT -->
+
+<main class="content">
+
+    <div class="small-title">
+        ACCOUNT
+    </div>
+
+    <h1>
+        Earn
+    </h1>
+
+    <div class="subtitle">
+        View your earning information and account income.
+    </div>
+
+
+    <!-- TOTAL EARNINGS -->
+
+    <div class="income-card">
+
+        <div class="income-label">
+            TOTAL EARNINGS
+        </div>
+
+        <div class="income-value">
+            0.00
+
+            <span class="income-currency">
+                USDT
+            </span>
+        </div>
+
+        <div class="income-description">
+            Your current recorded earnings will appear here.
+        </div>
 
     </div>
 
 
-    <!-- CONTENT -->
+    <!-- TASKS -->
 
-    <main class="content">
+    <div class="section-title">
+        Tasks
+    </div>
 
-        <div class="small-title">
-            ACCOUNT
+    <div class="task-card">
+
+        <div class="task-left">
+
+            <div class="task-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <div class="task-title">
+                    To do tasks
+                </div>
+
+                <div class="task-count">
+                    0/3
+                </div>
+
+            </div>
+
         </div>
 
-        <h1>
+        <div class="task-lock">
+            🔒
+        </div>
+
+    </div>
+
+
+    <!-- OVERVIEW -->
+
+    <div class="section-title">
+        Earnings Overview
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-icon">
+                ★
+            </div>
+
+            <div class="card-title">
+                Daily Income
+            </div>
+
+            <div class="card-value">
+                0.00 USDT
+            </div>
+
+            <div class="card-text">
+                Current daily income.
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                ◈
+            </div>
+
+            <div class="card-title">
+                Plan Income
+            </div>
+
+            <div class="card-value">
+                0.00 USDT
+            </div>
+
+            <div class="card-text">
+                Income from active plans.
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                ♧
+            </div>
+
+            <div class="card-title">
+                Team Income
+            </div>
+
+            <div class="card-value">
+                0.00 USDT
+            </div>
+
+            <div class="card-text">
+                Referral team income.
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                ◷
+            </div>
+
+            <div class="card-title">
+                Total Income
+            </div>
+
+            <div class="card-value">
+                0.00 USDT
+            </div>
+
+            <div class="card-text">
+                Total recorded income.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- INFORMATION -->
+
+    <div class="section-title">
+        Information
+    </div>
+
+    <div class="info">
+
+        <div class="info-title">
+            Earnings Activity
+        </div>
+
+        <div class="info-text">
+            Your earnings and income activity will be
+            displayed here as your account becomes active.
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- FIXED BOTTOM NAV -->
+
+<nav class="bottom">
+
+    <a href="/" class="nav">
+
+        <span class="nav-icon">
+            ⌂
+        </span>
+
+        <span>
+            Home
+        </span>
+
+    </a>
+
+
+    <a href="/team" class="nav">
+
+        <span class="nav-icon">
+            ♧
+        </span>
+
+        <span>
+            Team
+        </span>
+
+    </a>
+
+
+    <a href="/plans" class="nav">
+
+        <span class="nav-icon">
+            ◈
+        </span>
+
+        <span>
+            Plans
+        </span>
+
+    </a>
+
+
+    <a href="/earn" class="nav active">
+
+        <span class="nav-icon">
+            ★
+        </span>
+
+        <span>
             Earn
-        </h1>
+        </span>
 
-        <div class="subtitle">
-            View your earning information and account income.
-        </div>
+    </a>
 
 
-        <div class="income-card">
+    <a href="/dashboard" class="nav">
 
-            <div class="income-label">
-                TOTAL EARNINGS
-            </div>
+        <span class="nav-icon">
+            ▣
+        </span>
 
-            <div class="income-value">
-                0.00
-                <span class="income-currency">
-                    USDT
-                </span>
-            </div>
+        <span>
+            Dashboard
+        </span>
 
-            <div class="income-description">
-                Your current recorded earnings will appear here.
-            </div>
+    </a>
 
-        </div>
+</nav>
 
 
-        <div class="section-title">
-            Earnings Overview
-        </div>
+<script>
+
+window.addEventListener(
+    "load",
+    function(){
+
+        document.body.classList.add(
+            "page-ready"
+        );
+
+    }
+);
 
 
-        <div class="cards">
+function navigateWithFade(path){
 
-            <div class="card">
+    document.body.classList.remove(
+        "page-ready"
+    );
 
-                <div class="card-icon">
-                    ★
-                </div>
+    document.body.classList.add(
+        "page-exit"
+    );
 
-                <div class="card-title">
-                    Daily Income
-                </div>
+    setTimeout(
+        function(){
 
-                <div class="card-value">
-                    0.00
-                </div>
-
-                <div class="card-text">
-                    Current daily income.
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    ◈
-                </div>
-
-                <div class="card-title">
-                    Plan Income
-                </div>
-
-                <div class="card-value">
-                    0.00
-                </div>
-
-                <div class="card-text">
-                    Income from active plans.
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    ♧
-                </div>
-
-                <div class="card-title">
-                    Team Income
-                </div>
-
-                <div class="card-value">
-                    0.00
-                </div>
-
-                <div class="card-text">
-                    Referral team income.
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    ◷
-                </div>
-
-                <div class="card-title">
-                    Total Income
-                </div>
-
-                <div class="card-value">
-                    0.00
-                </div>
-
-                <div class="card-text">
-                    Total recorded income.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="section-title">
-            Information
-        </div>
-
-
-        <div class="info">
-
-            <div class="info-title">
-                Earnings Activity
-            </div>
-
-            <div class="info-text">
-                Your earnings and income activity will be
-                displayed here as your account becomes active.
-            </div>
-
-        </div>
-
-    </main>
-
-
-    <!-- BOTTOM NAVIGATION -->
-
-    <nav class="bottom-nav">
-
-        <button
-            type="button"
-            class="bottom-button"
-            onclick="goTo('/')"
-        >
-            <span class="bottom-icon">⌂</span>
-            <span class="bottom-label">Home</span>
-        </button>
-
-
-        <button
-            type="button"
-            class="bottom-button"
-            onclick="goTo('/team')"
-        >
-            <span class="bottom-icon">♧</span>
-            <span class="bottom-label">Team</span>
-        </button>
-
-
-        <button
-            type="button"
-            class="bottom-button"
-            onclick="goTo('/plans')"
-        >
-            <span class="bottom-icon">◈</span>
-            <span class="bottom-label">Plans</span>
-        </button>
-
-
-        <button
-            type="button"
-            class="bottom-button active"
-            onclick="goTo('/earn')"
-        >
-            <span class="bottom-icon">★</span>
-            <span class="bottom-label">Earn</span>
-        </button>
-
-
-        <button
-            type="button"
-            class="bottom-button"
-            onclick="goTo('/dashboard')"
-        >
-            <span class="bottom-icon">▣</span>
-            <span class="bottom-label">Dashboard</span>
-        </button>
-
-    </nav>
-
-
-    <script>
-        function goTo(path) {
             window.location.assign(path);
+
+        },
+        350
+    );
+}
+
+
+document
+    .querySelectorAll("a")
+    .forEach(
+        function(link){
+
+            link.addEventListener(
+                "click",
+                function(event){
+
+                    const href =
+                        this.getAttribute("href");
+
+                    if(
+                        !href ||
+                        href.startsWith("#")
+                    ){
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    navigateWithFade(
+                        href
+                    );
+
+                }
+            );
+
         }
-    </script>
+    );
+
+</script>
 
 </body>
 </html>

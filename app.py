@@ -9,13 +9,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
 
-# ==================================================
-# APP
-# ==================================================
+# ============================================================
+# GOLDEN TRUST
+# ============================================================
 
 app = Flask(__name__)
 
-app.secret_key = "golden-trust-change-this-key"
+app.secret_key = "golden-trust-change-this-secret-key"
 
 DATABASE = "goldentrust.db"
 
@@ -27,10 +27,12 @@ ALLOWED_IMAGE_EXTENSIONS = {
     ".webp"
 }
 
+SUPPORT_USERNAME = "golden_trust_support"
 
-# ==================================================
+
+# ============================================================
 # DATABASE
-# ==================================================
+# ============================================================
 
 def get_db():
     conn = sqlite3.connect(DATABASE)
@@ -39,6 +41,7 @@ def get_db():
 
 
 def init_db():
+
     conn = get_db()
 
     conn.execute("""
@@ -50,6 +53,7 @@ def init_db():
             profile_image TEXT,
             user_id TEXT UNIQUE,
             referred_by TEXT,
+            wallet TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
@@ -59,77 +63,76 @@ def init_db():
 
 
 def migrate_database():
+
     conn = get_db()
 
     columns = conn.execute(
         "PRAGMA table_info(users)"
     ).fetchall()
 
-    column_names = [
-        column["name"]
-        for column in columns
-    ]
+    names = [column["name"] for column in columns]
 
-    if "profile_image" not in column_names:
+    if "profile_image" not in names:
         conn.execute("""
             ALTER TABLE users
             ADD COLUMN profile_image TEXT
         """)
 
-    if "user_id" not in column_names:
+    if "user_id" not in names:
         conn.execute("""
             ALTER TABLE users
             ADD COLUMN user_id TEXT
         """)
 
-    if "referred_by" not in column_names:
+    if "referred_by" not in names:
         conn.execute("""
             ALTER TABLE users
             ADD COLUMN referred_by TEXT
+        """)
+
+    if "wallet" not in names:
+        conn.execute("""
+            ALTER TABLE users
+            ADD COLUMN wallet TEXT
         """)
 
     conn.commit()
     conn.close()
 
 
-# ==================================================
-# PUBLIC USER ID
-# ==================================================
+# ============================================================
+# USER ID
+# ============================================================
 
 def generate_user_id():
-    """
-    Creates a public user ID containing
-    lowercase letters and numbers only.
-    Example: k7m2x9p4
-    """
 
     characters = string.ascii_lowercase + string.digits
 
     conn = get_db()
 
-    while True:
+    try:
 
-        new_id = "".join(
-            secrets.choice(characters)
-            for _ in range(8)
-        )
+        while True:
 
-        existing = conn.execute("""
-            SELECT id
-            FROM users
-            WHERE user_id = ?
-        """, (new_id,)).fetchone()
+            new_id = "".join(
+                secrets.choice(characters)
+                for _ in range(8)
+            )
 
-        if not existing:
-            conn.close()
-            return new_id
+            exists = conn.execute("""
+                SELECT id
+                FROM users
+                WHERE user_id = ?
+            """, (new_id,)).fetchone()
+
+            if not exists:
+                return new_id
+
+    finally:
+        conn.close()
 
 
 def assign_missing_user_ids():
-    """
-    Gives existing users a public user_id
-    if they do not already have one.
-    """
 
     conn = get_db()
 
@@ -142,7 +145,23 @@ def assign_missing_user_ids():
 
     for user in users:
 
-        new_id = generate_user_id()
+        while True:
+
+            characters = string.ascii_lowercase + string.digits
+
+            new_id = "".join(
+                secrets.choice(characters)
+                for _ in range(8)
+            )
+
+            exists = conn.execute("""
+                SELECT id
+                FROM users
+                WHERE user_id = ?
+            """, (new_id,)).fetchone()
+
+            if not exists:
+                break
 
         conn.execute("""
             UPDATE users
@@ -157,9 +176,9 @@ def assign_missing_user_ids():
     conn.close()
 
 
-# ==================================================
+# ============================================================
 # CURRENT USER
-# ==================================================
+# ============================================================
 
 def get_current_user():
 
@@ -175,7 +194,8 @@ def get_current_user():
             username,
             email,
             profile_image,
-            referred_by
+            referred_by,
+            wallet
         FROM users
         WHERE id = ?
     """, (
@@ -195,9 +215,9 @@ def inject_user():
     }
 
 
-# ==================================================
+# ============================================================
 # HOME
-# ==================================================
+# ============================================================
 
 @app.route("/")
 def home():
@@ -206,20 +226,19 @@ def home():
 
     return render_template(
         "home.html",
+        user=user,
         username=user["username"] if user else None,
-        email=user["email"] if user else None,
-        user=user
+        email=user["email"] if user else None
     )
 
 
-# ==================================================
+# ============================================================
 # REGISTER
-# ==================================================
+# ============================================================
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
-    # Referral ID from URL
     referral_id = request.args.get(
         "ref",
         ""
@@ -242,18 +261,13 @@ def register():
             ""
         )
 
-        # Also accept referral from form
-        form_referral = request.form.get(
+        form_ref = request.form.get(
             "ref",
             ""
         ).strip().lower()
 
-        if form_referral:
-            referral_id = form_referral
-
-        # ------------------------------------------
-        # BASIC VALIDATION
-        # ------------------------------------------
+        if form_ref:
+            referral_id = form_ref
 
         if not username or not email or not password:
 
@@ -271,10 +285,6 @@ def register():
                 referral_id=referral_id
             )
 
-        # ------------------------------------------
-        # USERNAME VALIDATION
-        # ------------------------------------------
-
         if not re.fullmatch(
             r"[A-Za-z0-9_]{3,30}",
             username
@@ -282,16 +292,9 @@ def register():
 
             return render_template(
                 "register.html",
-                error=(
-                    "Username must contain only "
-                    "letters, numbers or underscore."
-                ),
+                error="Username must contain only letters, numbers or underscore.",
                 referral_id=referral_id
             )
-
-        # ------------------------------------------
-        # CHECK REFERRAL
-        # ------------------------------------------
 
         referred_by = None
 
@@ -310,26 +313,17 @@ def register():
             conn.close()
 
             if referrer:
-
                 referred_by = referrer["user_id"]
-
-        # ------------------------------------------
-        # PASSWORD
-        # ------------------------------------------
 
         password_hash = generate_password_hash(
             password
         )
 
-        # ------------------------------------------
-        # CREATE USER
-        # ------------------------------------------
+        new_user_id = generate_user_id()
 
         conn = get_db()
 
         try:
-
-            new_user_id = generate_user_id()
 
             conn.execute("""
                 INSERT INTO users (
@@ -356,9 +350,7 @@ def register():
 
             return render_template(
                 "register.html",
-                error=(
-                    "Username or email already exists."
-                ),
+                error="Username or email already exists.",
                 referral_id=referral_id
             )
 
@@ -374,14 +366,11 @@ def register():
     )
 
 
-# ==================================================
+# ============================================================
 # LOGIN
-# ==================================================
+# ============================================================
 
-@app.route(
-    "/login",
-    methods=["GET", "POST"]
-)
+@app.route("/login", methods=["GET", "POST"])
 def login():
 
     if request.method == "POST":
@@ -422,15 +411,12 @@ def login():
             session["email"] = user["email"]
 
             return redirect(
-                url_for("dashboard")
+                url_for("home")
             )
 
         return render_template(
             "login.html",
-            error=(
-                "Invalid username/email "
-                "or password."
-            )
+            error="Invalid username/email or password."
         )
 
     return render_template(
@@ -438,9 +424,9 @@ def login():
     )
 
 
-# ==================================================
+# ============================================================
 # LOGOUT
-# ==================================================
+# ============================================================
 
 @app.route("/logout")
 def logout():
@@ -452,18 +438,15 @@ def logout():
     )
 
 
-# ==================================================
+# ============================================================
 # DASHBOARD
-# ==================================================
+# ============================================================
 
 @app.route("/dashboard")
 def dashboard():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     user = get_current_user()
 
@@ -477,38 +460,29 @@ def dashboard():
 
     return render_template(
         "dashboard.html",
+        user=user,
         username=user["username"],
         email=user["email"],
-        user=user,
-        profile_image=user["profile_image"]
+        profile_image=user["profile_image"],
+        balance=0
     )
 
 
-# ==================================================
+# ============================================================
 # PROFILE
-# ==================================================
+# ============================================================
 
-@app.route(
-    "/profile",
-    methods=["GET", "POST"]
-)
+@app.route("/profile", methods=["GET", "POST"])
 def profile():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
-
-    # ------------------------------------------
-    # RETURN LOCATION
-    # ------------------------------------------
+        return redirect(url_for("login"))
 
     next_page = request.args.get(
         "next",
         request.form.get(
             "next",
-            "/dashboard"
+            "/"
         )
     )
 
@@ -519,15 +493,12 @@ def profile():
         "/plans",
         "/earn",
         "/deposit",
-        "/transactions"
+        "/transactions",
+        "/settings"
     }
 
     if next_page not in allowed_pages:
-        next_page = "/dashboard"
-
-    # ------------------------------------------
-    # USER
-    # ------------------------------------------
+        next_page = "/"
 
     conn = get_db()
 
@@ -538,7 +509,8 @@ def profile():
             username,
             email,
             profile_image,
-            referred_by
+            referred_by,
+            wallet
         FROM users
         WHERE id = ?
     """, (
@@ -557,10 +529,6 @@ def profile():
 
     message = None
 
-    # ------------------------------------------
-    # SAVE PROFILE
-    # ------------------------------------------
-
     if request.method == "POST":
 
         username = request.form.get(
@@ -568,7 +536,6 @@ def profile():
             ""
         ).strip()
 
-        # Username validation
         if not username:
 
             message = "Username cannot be empty."
@@ -585,7 +552,7 @@ def profile():
 
         else:
 
-            existing_user = conn.execute("""
+            existing = conn.execute("""
                 SELECT id
                 FROM users
                 WHERE username = ?
@@ -595,11 +562,9 @@ def profile():
                 session["user_id"]
             )).fetchone()
 
-            if existing_user:
+            if existing:
 
-                message = (
-                    "This username is already taken."
-                )
+                message = "This username is already taken."
 
             else:
 
@@ -609,14 +574,7 @@ def profile():
                     "profile_image"
                 )
 
-                # ----------------------------------
-                # PROFILE IMAGE
-                # ----------------------------------
-
-                if (
-                    uploaded_file
-                    and uploaded_file.filename
-                ):
+                if uploaded_file and uploaded_file.filename:
 
                     upload_folder = os.path.join(
                         app.root_path,
@@ -630,10 +588,8 @@ def profile():
                         exist_ok=True
                     )
 
-                    original_filename = (
-                        secure_filename(
-                            uploaded_file.filename
-                        )
+                    original_filename = secure_filename(
+                        uploaded_file.filename
                     )
 
                     extension = os.path.splitext(
@@ -642,16 +598,14 @@ def profile():
 
                     if extension not in ALLOWED_IMAGE_EXTENSIONS:
 
-                        message = (
-                            "Invalid image format."
-                        )
+                        message = "Invalid image format."
 
                     else:
 
                         filename = (
-                            f"user_"
-                            f"{session['user_id']}"
-                            f"{extension}"
+                            "user_"
+                            + str(session["user_id"])
+                            + extension
                         )
 
                         filepath = os.path.join(
@@ -667,10 +621,6 @@ def profile():
                             "/static/uploads/profiles/"
                             + filename
                         )
-
-                # ----------------------------------
-                # SAVE
-                # ----------------------------------
 
                 if message is None:
 
@@ -690,27 +640,9 @@ def profile():
 
                     session["username"] = username
 
-                    # Reload user
-                    user = conn.execute("""
-                        SELECT
-                            id,
-                            user_id,
-                            username,
-                            email,
-                            profile_image,
-                            referred_by
-                        FROM users
-                        WHERE id = ?
-                    """, (
-                        session["user_id"],
-                    )).fetchone()
-
                     conn.close()
 
-                    # Return to original menu
-                    return redirect(
-                        next_page
-                    )
+                    return redirect(next_page)
 
     conn.close()
 
@@ -722,18 +654,110 @@ def profile():
     )
 
 
-# ==================================================
+# ============================================================
+# SETTINGS
+# ============================================================
+
+@app.route("/settings")
+def settings():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    user = get_current_user()
+
+    if user is None:
+        session.clear()
+        return redirect(url_for("login"))
+
+    return render_template(
+        "settings.html",
+        user=user,
+        username=user["username"],
+        email=user["email"],
+        profile_image=user["profile_image"],
+        support_username=SUPPORT_USERNAME
+    )
+
+
+# ============================================================
+# CHANGE PASSWORD
+# VISUAL ONLY FOR NOW
+# ============================================================
+
+@app.route("/settings/password")
+def change_password():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    user = get_current_user()
+
+    return render_template(
+        "change_password.html",
+        user=user
+    )
+
+
+# ============================================================
+# CHANGE EMAIL
+# VISUAL ONLY FOR NOW
+# ============================================================
+
+@app.route("/settings/email")
+def change_email():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    user = get_current_user()
+
+    return render_template(
+        "change_email.html",
+        user=user
+    )
+
+
+# ============================================================
+# CHANGE WALLET
+# VISUAL ONLY FOR NOW
+# ============================================================
+
+@app.route("/settings/wallet")
+def change_wallet():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    user = get_current_user()
+
+    return render_template(
+        "change_wallet.html",
+        user=user
+    )
+
+
+# ============================================================
+# CUSTOMER CARE
+# ============================================================
+
+@app.route("/customer-care")
+def customer_care():
+
+    return redirect(
+        "https://t.me/" + SUPPORT_USERNAME
+    )
+
+
+# ============================================================
 # PLANS
-# ==================================================
+# ============================================================
 
 @app.route("/plans")
 def plans():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     user = get_current_user()
 
@@ -746,18 +770,15 @@ def plans():
     )
 
 
-# ==================================================
+# ============================================================
 # DEPOSIT
-# ==================================================
+# ============================================================
 
 @app.route("/deposit")
 def deposit():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     user = get_current_user()
 
@@ -768,18 +789,15 @@ def deposit():
     )
 
 
-# ==================================================
+# ============================================================
 # TRANSACTIONS
-# ==================================================
+# ============================================================
 
 @app.route("/transactions")
 def transactions():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     user = get_current_user()
 
@@ -790,18 +808,15 @@ def transactions():
     )
 
 
-# ==================================================
+# ============================================================
 # TEAM
-# ==================================================
+# ============================================================
 
 @app.route("/team")
 def team():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     user = get_current_user()
 
@@ -814,18 +829,15 @@ def team():
     )
 
 
-# ==================================================
+# ============================================================
 # EARN
-# ==================================================
+# ============================================================
 
 @app.route("/earn")
 def earn():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     user = get_current_user()
 
@@ -838,26 +850,20 @@ def earn():
     )
 
 
-# ==================================================
-# REFERRAL LINK
-# ==================================================
+# ============================================================
+# REFERRAL
+# ============================================================
 
 @app.route("/referral")
 def referral():
 
     if "user_id" not in session:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     user = get_current_user()
 
     if user is None:
-
-        return redirect(
-            url_for("login")
-        )
+        return redirect(url_for("login"))
 
     referral_link = url_for(
         "register",
@@ -875,9 +881,23 @@ def referral():
     )
 
 
-# ==================================================
+# ============================================================
+# ERROR HANDLING
+# ============================================================
+
+@app.errorhandler(404)
+def page_not_found(error):
+
+    return """
+    <h2 style="font-family:Arial;text-align:center;margin-top:50px;">
+        Page Not Found
+    </h2>
+    """, 404
+
+
+# ============================================================
 # START
-# ==================================================
+# ============================================================
 
 if __name__ == "__main__":
 
@@ -889,5 +909,6 @@ if __name__ == "__main__":
 
     app.run(
         host="0.0.0.0",
-        port=5000
+        port=5000,
+        debug=False
     )

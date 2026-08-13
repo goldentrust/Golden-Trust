@@ -22,15 +22,32 @@
 
         body {
             background: #070707;
-            color: #ffffff;
+            color: #fff;
             font-family: Arial, sans-serif;
             padding-bottom: 100px;
+
+            opacity: 0;
+            animation: pageFade .45s ease forwards;
+        }
+
+        @keyframes pageFade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         a {
             color: inherit;
             text-decoration: none;
         }
+
+        /* TOP */
 
         .top {
             display: flex;
@@ -52,6 +69,12 @@
             font-size: 12px;
         }
 
+        .back:hover {
+            color: #d4af37;
+        }
+
+        /* CONTENT */
+
         .content {
             padding: 28px 18px;
         }
@@ -69,13 +92,17 @@
             margin-bottom: 24px;
         }
 
+        /* PROFILE CARD */
+
         .profile-card {
-            background: #111111;
+            background: #111;
             border: 1px solid #292929;
             border-radius: 22px;
             padding: 24px 18px;
             margin-bottom: 18px;
         }
+
+        /* PHOTO */
 
         .photo-area {
             text-align: center;
@@ -83,7 +110,6 @@
         }
 
         .avatar-wrapper {
-            position: relative;
             display: inline-block;
         }
 
@@ -94,6 +120,19 @@
             object-fit: cover;
             border: 2px solid #d4af37;
             background: #181818;
+        }
+
+        .avatar-placeholder {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
+            background: #181818;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            color: #d4af37;
         }
 
         .photo-button {
@@ -108,9 +147,15 @@
             cursor: pointer;
         }
 
+        .photo-button:active {
+            transform: scale(.97);
+        }
+
         #photoInput {
             display: none;
         }
+
+        /* FIELDS */
 
         .field {
             margin-bottom: 17px;
@@ -129,7 +174,7 @@
             border-radius: 12px;
             border: 1px solid #303030;
             background: #080808;
-            color: #ffffff;
+            color: #fff;
             outline: none;
             font-size: 12px;
         }
@@ -143,17 +188,29 @@
             cursor: not-allowed;
         }
 
+        /* SAVE */
+
         .save-button {
             width: 100%;
             padding: 15px;
             border: none;
             border-radius: 13px;
-            background: linear-gradient(135deg, #f2d675, #b58a1d);
+            background: linear-gradient(
+                135deg,
+                #f2d675,
+                #b58a1d
+            );
             color: #080808;
             font-size: 12px;
             font-weight: bold;
             cursor: pointer;
         }
+
+        .save-button:active {
+            transform: scale(.98);
+        }
+
+        /* MESSAGE */
 
         .message {
             margin-bottom: 15px;
@@ -165,6 +222,8 @@
             font-size: 10px;
             text-align: center;
         }
+
+        /* ACCOUNT INFO */
 
         .account-info {
             background: #111;
@@ -204,6 +263,8 @@
             word-break: break-word;
         }
 
+        /* LOGOUT */
+
         .logout {
             display: block;
             width: 100%;
@@ -216,7 +277,11 @@
             font-size: 11px;
         }
 
-        /* Bottom navigation */
+        .logout:active {
+            transform: scale(.98);
+        }
+
+        /* BOTTOM NAV */
 
         .bottom-nav {
             position: fixed;
@@ -252,6 +317,8 @@
             color: #666;
             font-size: 10px;
             text-align: center;
+
+            transition: .2s;
         }
 
         .bottom-icon {
@@ -262,6 +329,25 @@
 
         .bottom-item.active {
             color: #d4af37;
+        }
+
+        .bottom-item:active {
+            transform: scale(.94);
+        }
+
+        @media (max-width: 360px) {
+
+            .title {
+                font-size: 26px;
+            }
+
+            .bottom-item {
+                font-size: 9px;
+            }
+
+            .bottom-icon {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -305,9 +391,9 @@
         {% endif %}
 
 
-        <div class="profile-card">
+        <!-- PROFILE -->
 
-            <!-- PHOTO -->
+        <div class="profile-card">
 
             <div class="photo-area">
 
@@ -326,14 +412,7 @@
 
                         <div
                             id="avatarPlaceholder"
-                            class="avatar"
-                            style="
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                font-size:42px;
-                                color:#d4af37;
-                            "
+                            class="avatar-placeholder"
                         >
                             👤
                         </div>
@@ -350,9 +429,7 @@
 
                 </div>
 
-
                 <br>
-
 
                 <label
                     for="photoInput"
@@ -372,7 +449,7 @@
             </div>
 
 
-            <!-- PROFILE FORM -->
+            <!-- FORM -->
 
             <form
                 id="profileForm"
@@ -428,7 +505,7 @@
         </div>
 
 
-        <!-- ACCOUNT INFO -->
+        <!-- ACCOUNT INFORMATION -->
 
         <div class="account-info">
 
@@ -478,6 +555,8 @@
         </div>
 
 
+        <!-- LOGOUT -->
+
         <a
             href="/logout"
             class="logout"
@@ -497,24 +576,20 @@
             <span>Home</span>
         </a>
 
-
         <a href="/team" class="bottom-item">
             <span class="bottom-icon">♧</span>
             <span>Team</span>
         </a>
-
 
         <a href="/plans" class="bottom-item">
             <span class="bottom-icon">◈</span>
             <span>Plans</span>
         </a>
 
-
         <a href="/earn" class="bottom-item">
             <span class="bottom-icon">★</span>
             <span>Earn</span>
         </a>
-
 
         <a href="/dashboard" class="bottom-item active">
             <span class="bottom-icon">▣</span>
@@ -524,45 +599,75 @@
     </nav>
 
 
+    <!-- PHOTO PREVIEW -->
+
     <script>
-        const photoInput = document.getElementById("photoInput");
-        const avatarPreview = document.getElementById("avatarPreview");
-        const avatarPlaceholder = document.getElementById("avatarPlaceholder");
+
+        const photoInput =
+            document.getElementById("photoInput");
+
+        const avatarPreview =
+            document.getElementById("avatarPreview");
+
+        const avatarPlaceholder =
+            document.getElementById("avatarPlaceholder");
+
 
         if (photoInput) {
 
-            photoInput.addEventListener("change", function () {
+            photoInput.addEventListener(
+                "change",
+                function () {
 
-                const file = this.files[0];
+                    const file = this.files[0];
 
-                if (!file) {
-                    return;
-                }
-
-                if (!file.type.startsWith("image/")) {
-                    alert("Please select an image.");
-                    this.value = "";
-                    return;
-                }
-
-                const reader = new FileReader();
-
-                reader.onload = function (event) {
-
-                    avatarPreview.src = event.target.result;
-                    avatarPreview.style.display = "inline-block";
-
-                    if (avatarPlaceholder) {
-                        avatarPlaceholder.style.display = "none";
+                    if (!file) {
+                        return;
                     }
 
-                };
 
-                reader.readAsDataURL(file);
+                    if (!file.type.startsWith("image/")) {
 
-            });
+                        alert(
+                            "Please select an image."
+                        );
+
+                        this.value = "";
+
+                        return;
+                    }
+
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (event) {
+
+                            avatarPreview.src =
+                                event.target.result;
+
+                            avatarPreview.style.display =
+                                "inline-block";
+
+
+                            if (avatarPlaceholder) {
+
+                                avatarPlaceholder.style.display =
+                                    "none";
+                            }
+
+                        };
+
+
+                    reader.readAsDataURL(file);
+
+                }
+            );
 
         }
+
     </script>
 
 </body>

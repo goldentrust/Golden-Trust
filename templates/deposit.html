@@ -1,215 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposit - Golden Trust</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<title>Deposit - Golden Trust</title>
 
-        body {
-            background: #070707;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            padding-bottom: 95px;
-        }
+<style>
 
-        .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 18px;
-        }
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-        .logo {
-            color: #d4af37;
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-        }
+html,body{
+    width:100%;
+    min-height:100%;
+}
 
-        .profile {
-            text-align: center;
-            color: #d4af37;
-            text-decoration: none;
-        }
+body{
+    background:#070707;
+    color:#fff;
+    font-family:Arial,sans-serif;
+    padding-bottom:95px;
+}
 
-        .profile-icon {
-            width: 42px;
-            height: 42px;
-            border: 1px solid #d4af37;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: auto;
-        }
+a{
+    color:inherit;
+    text-decoration:none;
+}
 
-        .profile-name {
-            font-size: 10px;
-            margin-top: 4px;
-        }
+/* ================= TOP ================= */
 
-        .page-title {
-            padding: 12px 18px 22px;
-        }
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 18px;
+}
 
-        .page-title h1 {
-            font-size: 28px;
-            margin-bottom: 7px;
-        }
+.top-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+}
 
-        .page-title p {
-            color: #777;
-            font-size: 13px;
-        }
+.logo{
+    color:#d4af37;
+    font-size:21px;
+    font-weight:bold;
+    letter-spacing:1.5px;
+    white-space:nowrap;
+}
 
-        .card {
-            margin: 0 18px 18px;
-            padding: 22px;
-            background: #121212;
-            border: 1px solid #292929;
-            border-radius: 22px;
-        }
+.back-top{
+    width:38px;
+    height:38px;
 
-        .label {
-            color: #777;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-        .network-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 22px;
-        }
+    border-radius:11px;
+    border:1px solid #3a3015;
+    background:#111;
 
-        .network {
-            flex: 1;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid #333;
-            background: #0d0d0d;
-            color: #aaa;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    color:#d4af37;
+    font-size:21px;
 
-        .network.active {
-            border-color: #d4af37;
-            color: #d4af37;
-            background: #18150b;
-        }
+    flex-shrink:0;
+}
 
-        .address {
-            background: #090909;
-            border: 1px solid #303030;
-            border-radius: 13px;
-            padding: 15px;
-            color: #d4af37;
-            font-size: 12px;
-            line-height: 1.6;
-            word-break: break-all;
-            margin-bottom: 12px;
-        }
+.back-top:active{
+    transform:scale(.94);
+}
 
-        .copy {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 13px;
-            background: linear-gradient(135deg, #f2d675, #b58a1d);
-            color: #080808;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.profile{
+    text-align:center;
+    color:#d4af37;
+    flex-shrink:0;
+}
 
-        .status {
-            text-align: center;
-            color: #45d18a;
-            font-size: 12px;
-            margin-top: 12px;
-            min-height: 16px;
-        }
+.profile-icon{
+    width:42px;
+    height:42px;
 
-        .warning {
-            margin-top: 18px;
-            padding: 15px;
-            border-radius: 13px;
-            background: #17140a;
-            border: 1px solid #3a3015;
-            color: #a89560;
-            font-size: 11px;
-            line-height: 1.7;
-        }
+    border:1px solid #d4af37;
+    border-radius:50%;
 
-        .back {
-            display: block;
-            margin: 0 18px;
-            padding: 15px;
-            text-align: center;
-            border-radius: 13px;
-            border: 1px solid #333;
-            color: #d4af37;
-            text-decoration: none;
-        }
+    overflow:hidden;
 
-        .bottom-nav {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 80px;
-            background: rgba(10,10,10,.98);
-            border-top: 1px solid #252525;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-        .nav-item {
-            color: #666;
-            text-align: center;
-            font-size: 10px;
-            text-decoration: none;
-        }
+    background:#111;
+}
 
-        .nav-icon {
-            display: block;
-            font-size: 21px;
-            margin-bottom: 5px;
-        }
+.profile-image{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
 
-        .nav-item.active {
-            color: #d4af37;
-        }
-    </style>
+.profile-placeholder{
+    color:#d4af37;
+    font-size:19px;
+}
+
+.profile-name{
+    font-size:10px;
+    margin-top:4px;
+}
+
+/* ================= TITLE ================= */
+
+.page-title{
+    padding:12px 18px 22px;
+}
+
+.page-title h1{
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.page-title p{
+    color:#777;
+    font-size:13px;
+}
+
+/* ================= CARD ================= */
+
+.card{
+    margin:0 18px 18px;
+    padding:22px;
+
+    background:#121212;
+    border:1px solid #292929;
+    border-radius:22px;
+}
+
+.label{
+    color:#777;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.network-buttons{
+    display:flex;
+    gap:10px;
+    margin-bottom:22px;
+}
+
+.network{
+    flex:1;
+    padding:14px;
+
+    border-radius:12px;
+    border:1px solid #333;
+
+    background:#0d0d0d;
+    color:#aaa;
+
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.network.active{
+    border-color:#d4af37;
+    color:#d4af37;
+    background:#18150b;
+}
+
+.address{
+    background:#090909;
+    border:1px solid #303030;
+    border-radius:13px;
+
+    padding:15px;
+
+    color:#d4af37;
+    font-size:12px;
+    line-height:1.6;
+
+    word-break:break-all;
+
+    margin-bottom:12px;
+}
+
+.copy{
+    width:100%;
+    padding:15px;
+
+    border:none;
+    border-radius:13px;
+
+    background:linear-gradient(
+        135deg,
+        #f2d675,
+        #b58a1d
+    );
+
+    color:#080808;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.status{
+    text-align:center;
+    color:#45d18a;
+
+    font-size:12px;
+    margin-top:12px;
+
+    min-height:16px;
+}
+
+.warning{
+    margin-top:18px;
+    padding:15px;
+
+    border-radius:13px;
+
+    background:#17140a;
+    border:1px solid #3a3015;
+
+    color:#a89560;
+
+    font-size:11px;
+    line-height:1.7;
+}
+
+/* ================= BACK ================= */
+
+.back{
+    display:block;
+
+    margin:0 18px;
+
+    padding:15px;
+
+    text-align:center;
+
+    border-radius:13px;
+    border:1px solid #333;
+
+    color:#d4af37;
+}
+
+/* ================= BOTTOM ================= */
+
+.bottom-nav{
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:80px;
+
+    background:rgba(10,10,10,.98);
+
+    border-top:1px solid #252525;
+
+    display:flex;
+
+    justify-content:space-around;
+    align-items:center;
+
+    z-index:99999;
+}
+
+.nav-item{
+    color:#666;
+
+    text-align:center;
+
+    font-size:10px;
+
+    text-decoration:none;
+}
+
+.nav-icon{
+    display:block;
+
+    font-size:21px;
+
+    margin-bottom:5px;
+}
+
+.nav-item.active{
+    color:#d4af37;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="top">
+<!-- ================= TOP ================= -->
 
-    <div class="logo">
-        GOLDEN TRUST
+<header class="top">
+
+    <div class="top-left">
+
+        <a
+            href="/dashboard"
+            class="back-top"
+        >
+            ‹
+        </a>
+
+        <div class="logo">
+            GOLDEN TRUST
+        </div>
+
     </div>
 
-    <a href="/login" class="profile">
-        <div class="profile-icon">👤</div>
-        <div class="profile-name">Profile</div>
+
+    <a
+        href="/profile?next=/deposit"
+        class="profile"
+    >
+
+        <div class="profile-icon">
+
+            {% if user and user["profile_image"] %}
+
+                <img
+                    src="{{ user['profile_image'] }}"
+                    alt="Profile"
+                    class="profile-image"
+                >
+
+            {% else %}
+
+                <span class="profile-placeholder">
+                    👤
+                </span>
+
+            {% endif %}
+
+        </div>
+
+        <div class="profile-name">
+            Profile
+        </div>
+
     </a>
 
-</div>
+</header>
 
+
+<!-- ================= TITLE ================= -->
 
 <div class="page-title">
 
-    <h1>Deposit</h1>
+    <h1>
+        Deposit
+    </h1>
 
     <p>
         Select a network to view the deposit details
@@ -218,11 +370,14 @@
 </div>
 
 
+<!-- ================= DEPOSIT CARD ================= -->
+
 <div class="card">
 
     <div class="label">
         SELECT NETWORK
     </div>
+
 
     <div class="network-buttons">
 
@@ -230,15 +385,18 @@
             type="button"
             class="network active"
             id="trc20"
-            onclick="selectNetwork('TRC20')">
+            onclick="selectNetwork('TRC20')"
+        >
             TRC20
         </button>
+
 
         <button
             type="button"
             class="network"
             id="erc20"
-            onclick="selectNetwork('ERC20')">
+            onclick="selectNetwork('ERC20')"
+        >
             ERC20
         </button>
 
@@ -246,11 +404,20 @@
 
 
     <div class="label">
-        <span id="networkName">TRC20</span> DEPOSIT ADDRESS
+
+        <span id="networkName">
+            TRC20
+        </span>
+
+        DEPOSIT ADDRESS
+
     </div>
 
 
-    <div class="address" id="address">
+    <div
+        class="address"
+        id="address"
+    >
         TDNg4tdCCS3qFfHPwgXarGr59HiMmMXjAV
     </div>
 
@@ -258,70 +425,104 @@
     <button
         type="button"
         class="copy"
-        onclick="copyAddress()">
+        onclick="copyAddress()"
+    >
         Copy Address
     </button>
 
 
-    <div class="status" id="status"></div>
+    <div
+        class="status"
+        id="status"
+    ></div>
 
 
     <div class="warning">
+
         Make sure the selected network matches the network
         used for the transfer. Sending assets through an
         unsupported network may result in permanent loss.
+
     </div>
 
 </div>
 
 
-<a href="/dashboard" class="back">
+<!-- ================= DASHBOARD BACK ================= -->
+
+<a
+    href="/dashboard"
+    class="back"
+>
     Back to Dashboard
 </a>
 
 
-<div class="bottom-nav">
+<!-- ================= BOTTOM NAV ================= -->
 
-    <a href="/" class="nav-item">
+<nav class="bottom-nav">
+
+    <a
+        href="/"
+        class="nav-item"
+    >
         <span class="nav-icon">⌂</span>
         Home
     </a>
 
-    <a href="/team" class="nav-item">
+
+    <a
+        href="/team"
+        class="nav-item"
+    >
         <span class="nav-icon">♧</span>
         Team
     </a>
 
-    <a href="/plans" class="nav-item">
+
+    <a
+        href="/plans"
+        class="nav-item"
+    >
         <span class="nav-icon">◈</span>
         Plans
     </a>
 
-    <a href="#" class="nav-item">
+
+    <a
+        href="/earn"
+        class="nav-item"
+    >
         <span class="nav-icon">★</span>
         Earn
     </a>
 
-    <a href="/dashboard" class="nav-item active">
+
+    <a
+        href="/dashboard"
+        class="nav-item active"
+    >
         <span class="nav-icon">▣</span>
         Dashboard
     </a>
 
-</div>
+</nav>
 
 
 <script>
 
 const addresses = {
 
-    TRC20: "TDNg4tdCCS3qFfHPwgXarGr59HiMmMXjAV",
+    TRC20:
+        "TDNg4tdCCS3qFfHPwgXarGr59HiMmMXjAV",
 
-    ERC20: "0x9fe244187b7e5e48698f1b6ed51775d4d8b58a82"
+    ERC20:
+        "0x9fe244187b7e5e48698f1b6ed51775d4d8b58a82"
 
 };
 
 
-function selectNetwork(network) {
+function selectNetwork(network){
 
     document
         .getElementById("trc20")
@@ -332,13 +533,13 @@ function selectNetwork(network) {
         .classList.remove("active");
 
 
-    if (network === "TRC20") {
+    if(network === "TRC20"){
 
         document
             .getElementById("trc20")
             .classList.add("active");
 
-    } else {
+    }else{
 
         document
             .getElementById("erc20")
@@ -364,25 +565,27 @@ function selectNetwork(network) {
 }
 
 
-async function copyAddress() {
+async function copyAddress(){
 
     const address =
         document
-        .getElementById("address")
-        .textContent;
+            .getElementById("address")
+            .textContent;
 
 
-    try {
+    try{
 
         await navigator.clipboard.writeText(address);
 
+
         document
             .getElementById("status")
-            .textContent = "Address copied successfully";
+            .textContent =
+            "Address copied successfully";
 
     }
 
-    catch (error) {
+    catch(error){
 
         document
             .getElementById("status")

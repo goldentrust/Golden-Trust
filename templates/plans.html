@@ -7,193 +7,365 @@
 <title>Plans - Golden Trust</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    background: #070707;
-    color: white;
-    font-family: Arial, sans-serif;
-    padding-bottom: 95px;
+html{
+    width:100%;
+    min-height:100%;
+    background:#070707;
 }
 
-.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 18px;
+body{
+    width:100%;
+    min-height:100vh;
+
+    background:#070707;
+    color:#fff;
+
+    font-family:Arial,sans-serif;
+
+    padding-bottom:100px;
+
+    opacity:0;
+    animation:pageFade .18s ease-out forwards;
 }
 
-.logo {
-    color: #d4af37;
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 1.5px;
+@keyframes pageFade{
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
 }
 
-.profile {
-    text-align: center;
-    color: #d4af37;
-    text-decoration: none;
+a{
+    color:inherit;
+    text-decoration:none;
 }
 
-.profile-icon {
-    width: 42px;
-    height: 42px;
-    border: 1px solid #d4af37;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
+/* =========================
+   TOP
+========================= */
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 18px;
 }
 
-.profile-name {
-    font-size: 10px;
-    margin-top: 4px;
+.logo{
+    color:#d4af37;
+
+    font-size:22px;
+    font-weight:bold;
+
+    letter-spacing:1.5px;
 }
 
-.page-title {
-    padding: 12px 18px 24px;
+.profile{
+    text-align:center;
+    color:#d4af37;
 }
 
-.page-title h1 {
-    font-size: 28px;
-    margin-bottom: 7px;
+.profile-icon{
+    width:42px;
+    height:42px;
+
+    border:1px solid #d4af37;
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+    background:#111;
+
+    margin:auto;
 }
 
-.page-title p {
-    color: #777;
-    font-size: 13px;
+.profile-image{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    border-radius:50%;
+
+    display:block;
 }
 
-.plans {
-    padding: 0 18px;
+.profile-name{
+    font-size:10px;
+    margin-top:4px;
 }
 
-.plan {
-    position: relative;
-    background: #121212;
-    border: 1px solid #292929;
-    border-radius: 22px;
-    padding: 23px;
-    margin-bottom: 16px;
-    box-shadow: 0 15px 35px rgba(0,0,0,.35);
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title{
+    padding:12px 18px 24px;
 }
 
-.plan.featured {
-    border-color: #d4af37;
-    background:
-        radial-gradient(
-            circle at top right,
-            #44370e,
-            #171717 45%,
-            #0d0d0d
-        );
+.page-title h1{
+    font-size:28px;
+    margin-bottom:7px;
 }
 
-.badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: #d4af37;
-    color: #080808;
-    font-size: 9px;
-    font-weight: bold;
-    padding: 6px 9px;
-    border-radius: 20px;
+.page-title p{
+    color:#777;
+    font-size:13px;
 }
 
-.plan-name {
-    color: #d4af37;
-    font-size: 13px;
-    letter-spacing: 1.2px;
-    margin-bottom: 12px;
+/* =========================
+   PLANS
+========================= */
+
+.plans{
+    padding:0 18px;
 }
 
-.price {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 5px;
+.plan{
+    position:relative;
+
+    background:#121212;
+
+    border:1px solid #292929;
+    border-radius:22px;
+
+    padding:23px;
+
+    margin-bottom:16px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
 }
 
-.duration {
-    color: #777;
-    font-size: 12px;
-    margin-bottom: 20px;
+.plan.featured{
+    border-color:#d4af37;
+
+    background:radial-gradient(
+        circle at top right,
+        #44370e,
+        #171717 45%,
+        #0d0d0d
+    );
 }
 
-.info {
-    display: flex;
-    justify-content: space-between;
-    padding: 13px 0;
-    border-top: 1px solid #292929;
+.badge{
+    position:absolute;
+
+    top:16px;
+    right:16px;
+
+    background:#d4af37;
+    color:#080808;
+
+    font-size:9px;
+    font-weight:bold;
+
+    padding:6px 9px;
+
+    border-radius:20px;
 }
 
-.info span:first-child {
-    color: #777;
-    font-size: 12px;
+.plan-name{
+    color:#d4af37;
+
+    font-size:13px;
+
+    letter-spacing:1.2px;
+
+    margin-bottom:12px;
 }
 
-.info span:last-child {
-    font-size: 13px;
-    font-weight: bold;
+.price{
+    font-size:32px;
+    font-weight:bold;
+
+    margin-bottom:5px;
 }
 
-.daily {
-    color: #45d18a;
+.price small{
+    color:#d4af37;
+    font-size:11px;
 }
 
-.select-btn {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin-top: 18px;
-    border-radius: 13px;
-    text-align: center;
-    text-decoration: none;
-    background: linear-gradient(135deg,#f2d675,#b58a1d);
-    color: #080808;
-    font-weight: bold;
-    font-size: 13px;
+.duration{
+    color:#777;
+
+    font-size:12px;
+
+    margin-bottom:20px;
 }
 
-.bottom-nav {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 80px;
-    background: rgba(10,10,10,.98);
-    border-top: 1px solid #252525;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.info{
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:13px 0;
+
+    border-top:1px solid #292929;
 }
 
-.nav-item {
-    color: #666;
-    text-align: center;
-    font-size: 10px;
-    text-decoration: none;
+.info span:first-child{
+    color:#777;
+    font-size:12px;
 }
 
-.nav-icon {
-    display: block;
-    font-size: 21px;
-    margin-bottom: 5px;
+.info span:last-child{
+    font-size:13px;
+    font-weight:bold;
 }
 
-.nav-item.active {
-    color: #d4af37;
+.daily{
+    color:#45d18a;
 }
+
+.select-btn{
+    display:block;
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:18px;
+
+    border-radius:13px;
+
+    text-align:center;
+
+    background:linear-gradient(
+        135deg,
+        #f2d675,
+        #b58a1d
+    );
+
+    color:#080808;
+
+    font-weight:bold;
+
+    font-size:13px;
+}
+
+/* =========================
+   FIXED BOTTOM NAV
+========================= */
+
+.bottom-nav{
+
+    position:fixed !important;
+
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+
+    width:100% !important;
+
+    height:80px !important;
+
+    background:rgba(10,10,10,.98);
+
+    border-top:1px solid #252525;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    z-index:9999999 !important;
+
+    margin:0;
+
+    padding:0;
+
+    transform:none !important;
+    -webkit-transform:none !important;
+
+    isolation:isolate;
+}
+
+.nav-item{
+
+    width:20%;
+    height:80px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#666;
+
+    text-align:center;
+
+    font-size:10px;
+
+    flex-shrink:0;
+}
+
+.nav-icon{
+
+    display:block;
+
+    font-size:21px;
+
+    line-height:22px;
+
+    margin-bottom:5px;
+}
+
+.nav-item.active{
+    color:#d4af37;
+}
+
+.nav-item:active{
+    transform:scale(.94);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:360px){
+
+    .page-title h1{
+        font-size:26px;
+    }
+
+    .price{
+        font-size:29px;
+    }
+
+    .nav-item{
+        font-size:9px;
+    }
+
+    .nav-icon{
+        font-size:19px;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
+
+<!-- TOP -->
 
 <div class="top">
 
@@ -201,17 +373,54 @@ body {
         GOLDEN TRUST
     </div>
 
-    <a href="/login" class="profile">
-        <div class="profile-icon">👤</div>
-        <div class="profile-name">Profile</div>
+    <a
+        href="/profile?next=/plans"
+        class="profile"
+    >
+
+        <div class="profile-icon">
+
+            {% if user and user["profile_image"] %}
+
+                <img
+                    src="{{ user['profile_image'] }}"
+                    alt="Profile"
+                    class="profile-image"
+                >
+
+            {% else %}
+
+                👤
+
+            {% endif %}
+
+        </div>
+
+        <div class="profile-name">
+            Profile
+        </div>
+
     </a>
 
 </div>
 
+
+<!-- PAGE TITLE -->
+
 <div class="page-title">
-    <h1>Plans</h1>
-    <p>Choose a package that fits your account</p>
+
+    <h1>
+        Plans
+    </h1>
+
+    <p>
+        Choose a package that fits your account
+    </p>
+
 </div>
+
+
+<!-- PLANS -->
 
 <div class="plans">
 
@@ -230,11 +439,21 @@ body {
         </div>
 
         <div class="info">
-            <span>Daily Amount</span>
-            <span class="daily">$1.65 USDT</span>
+
+            <span>
+                Daily Amount
+            </span>
+
+            <span class="daily">
+                $1.65 USDT
+            </span>
+
         </div>
 
-        <a href="#" class="select-btn">
+        <a
+            href="#"
+            class="select-btn"
+        >
             Select Plan
         </a>
 
@@ -256,11 +475,21 @@ body {
         </div>
 
         <div class="info">
-            <span>Daily Amount</span>
-            <span class="daily">$3.30 USDT</span>
+
+            <span>
+                Daily Amount
+            </span>
+
+            <span class="daily">
+                $3.30 USDT
+            </span>
+
         </div>
 
-        <a href="#" class="select-btn">
+        <a
+            href="#"
+            class="select-btn"
+        >
             Select Plan
         </a>
 
@@ -286,11 +515,21 @@ body {
         </div>
 
         <div class="info">
-            <span>Daily Amount</span>
-            <span class="daily">$8.50 USDT</span>
+
+            <span>
+                Daily Amount
+            </span>
+
+            <span class="daily">
+                $8.50 USDT
+            </span>
+
         </div>
 
-        <a href="#" class="select-btn">
+        <a
+            href="#"
+            class="select-btn"
+        >
             Select Plan
         </a>
 
@@ -312,11 +551,21 @@ body {
         </div>
 
         <div class="info">
-            <span>Daily Amount</span>
-            <span class="daily">$17.00 USDT</span>
+
+            <span>
+                Daily Amount
+            </span>
+
+            <span class="daily">
+                $17.00 USDT
+            </span>
+
         </div>
 
-        <a href="#" class="select-btn">
+        <a
+            href="#"
+            class="select-btn"
+        >
             Select Plan
         </a>
 
@@ -325,34 +574,90 @@ body {
 </div>
 
 
-<div class="bottom-nav">
+<!-- FIXED BOTTOM NAV -->
 
-    <a href="/" class="nav-item">
-        <span class="nav-icon">⌂</span>
-        Home
+<nav class="bottom-nav">
+
+    <a
+        href="/"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ⌂
+        </span>
+
+        <span>
+            Home
+        </span>
+
     </a>
 
-    <a href="/team" class="nav-item">
-        <span class="nav-icon">♧</span>
-        Team
+
+    <a
+        href="/team"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ♧
+        </span>
+
+        <span>
+            Team
+        </span>
+
     </a>
 
-    <a href="/plans" class="nav-item active">
-        <span class="nav-icon">◈</span>
-        Plans
+
+    <a
+        href="/plans"
+        class="nav-item active"
+    >
+
+        <span class="nav-icon">
+            ◈
+        </span>
+
+        <span>
+            Plans
+        </span>
+
     </a>
 
-    <a href="/earn" class="nav-item">
-        <span class="nav-icon">★</span>
-        Earn
+
+    <a
+        href="/earn"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ★
+        </span>
+
+        <span>
+            Earn
+        </span>
+
     </a>
 
-    <a href="/dashboard" class="nav-item">
-        <span class="nav-icon">▣</span>
-        Dashboard
+
+    <a
+        href="/dashboard"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ▣
+        </span>
+
+        <span>
+            Dashboard
+        </span>
+
     </a>
 
-</div>
+</nav>
 
 </body>
 </html>
